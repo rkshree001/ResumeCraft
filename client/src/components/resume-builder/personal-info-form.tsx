@@ -238,6 +238,17 @@ export default function PersonalInfoForm({ data, onChange, onNext }: PersonalInf
                     variant="ghost"
                     size="sm"
                     className="text-primary hover:text-primary/80"
+                    onClick={() => {
+                      const suggestions = [
+                        "Experienced professional with a proven track record of delivering high-quality results in fast-paced environments. Strong analytical and problem-solving skills with excellent communication abilities.",
+                        "Results-driven professional with expertise in project management and team leadership. Passionate about innovation and continuous improvement with a focus on achieving organizational goals.",
+                        "Detail-oriented professional with strong technical skills and a collaborative approach to problem-solving. Committed to excellence and delivering value through strategic thinking and execution.",
+                        "Dynamic professional with extensive experience in cross-functional collaboration and process optimization. Known for adaptability, creative thinking, and driving positive outcomes."
+                      ];
+                      const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+                      form.setValue('summary', randomSuggestion);
+                      handleFormChange();
+                    }}
                     data-testid="button-ai-suggest"
                   >
                     <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">

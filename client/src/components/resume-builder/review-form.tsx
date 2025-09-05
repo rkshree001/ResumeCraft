@@ -43,7 +43,7 @@ export default function ReviewForm({ data, onChange, onPrev, resumeId }: ReviewF
       const saveData = {
         ...data,
         title: resumeTitle,
-        templateId: data.templateId || "18e42ec4-85fe-4cbc-8575-877c73824c14", // Default to Modern Professional
+        templateId: data.templateId || "71d5bc3e-c71c-427c-b244-12d0903cc288", // Default to Modern Professional
       };
 
       if (resumeId) {

@@ -1,0 +1,341 @@
+Core Functionality Prompts
+Basic Setup:
+
+"Create a modern Resume/CV Builder with a clean, professional interface using React and Tailwind CSS"
+"Build a resume builder with multiple pre-designed templates that users can choose from"
+"Create a step-by-step resume builder with a wizard-style interface and progress indicator"
+Form & Data Management:
+
+"Add a personal information section with fields for name, contact details, professional summary, and photo upload"
+"Create an experience section where users can add multiple work experiences with company, role, dates, and bullet points"
+"Build an education section with fields for degree, institution, graduation date, and GPA"
+"Add a skills section with the ability to add technical skills, soft skills, and proficiency levels"
+"Create sections for certifications, projects, languages, and achievements"
+Advanced Features
+Template & Customization:
+
+"Create 5 different professional resume templates with varying layouts (modern, classic, creative, minimal, executive)"
+"Add a live preview feature that updates the resume in real-time as users fill out forms"
+"Implement theme customization with color schemes and font options"
+"Add the ability to rearrange sections and customize section visibility"
+Export & Sharing:
+
+"Add PDF export functionality with high-quality formatting"
+"Create a shareable link feature where users can share their resume online"
+"Implement print-optimized layouts for different paper sizes"
+User Experience:
+
+"Add form validation and smart suggestions for common fields"
+"Create an auto-save feature that saves progress locally"
+"Build a resume analyzer that provides tips and suggestions for improvement"
+"Add example content and placeholder text to guide users"
+Professional Features
+Advanced Functionality:
+
+"Create a cover letter builder that matches the resume design"
+"Add ATS (Applicant Tracking System) optimization suggestions"
+"Implement keyword analysis and job description matching"
+"Create multiple resume versions for different job applications"
+Data Management:
+
+"Add import functionality from LinkedIn or existing PDF resumes"
+"Create user accounts with cloud storage for multiple resumes"
+"Implement resume templates marketplace with premium options"
+UI/UX Enhancements
+Design & Interaction:
+
+"Create smooth animations and transitions between sections"
+"Add drag-and-drop functionality for reordering items"
+"Implement responsive design that works perfectly on mobile devices"
+"Create a dashboard for managing multiple resumes and tracking applications"
+Accessibility & Performance:
+
+"Ensure the resume builder is fully accessible with keyboard navigation and screen reader support"
+"Add dark mode support with elegant theme switching"
+"Optimize for fast loading and smooth performance"
+Specialized Prompts
+Industry-Specific:
+
+"Create specialized templates for different industries (tech, healthcare, finance, creative, academic)"
+"Add field-specific sections (publications for academics, portfolio links for designers, etc.)"
+Integration Features:
+
+"Add integration with job boards to automatically tailor resumes for specific positions"
+"Create email templates for sending resumes to employers"
+"Add analytics to track resume views and downloads"
+Template Selection & Management
+Template Gallery:
+
+"Create a template gallery with preview thumbnails showing 15+ professional resume designs"
+"Add template categories: Modern, Classic, Creative, Executive, Academic, Tech, Healthcare, Sales"
+"Implement template filtering by industry, experience level, and design style"
+"Create a template comparison view where users can see 2-3 templates side by side"
+Template Customization:
+
+"Add advanced template customization with color palette selection, font pairing options, and layout adjustments"
+"Create a template editor where users can modify margins, spacing, and section layouts"
+"Implement custom branding options for templates (personal logo, color schemes, custom headers)"
+"Add template versioning so users can save multiple customized versions of the same template"
+Advanced Features
+AI-Powered Enhancements:
+
+"Integrate AI content suggestions that recommend bullet points based on job titles and industries"
+"Create an AI writing assistant that helps improve resume language and removes weak words"
+"Add AI-powered job matching that suggests which template and content work best for specific roles"
+"Implement smart content optimization that adjusts resume length based on experience level"
+Multi-Format Support:
+
+"Create multiple export formats: PDF, Word, HTML, plain text, and LinkedIn-optimized versions"
+"Add QR code generation for digital resumes with embedded contact information"
+"Implement interactive web resume templates with clickable links and embedded media"
+"Create ATS-friendly plain text versions alongside designed PDFs"
+Collaboration & Feedback:
+
+"Add resume sharing for feedback with commenting system and suggestion tracking"
+"Create mentor/coach dashboard for reviewing and providing feedback on multiple resumes"
+"Implement version control with change tracking and rollback functionality"
+"Add team collaboration features for career services and HR departments"
+Professional Services Integration
+Career Tools:
+
+"Build an integrated cover letter builder that matches resume design and pulls relevant information"
+"Create a portfolio section for creative professionals with image galleries and project showcases"
+"Add LinkedIn profile optimization suggestions based on resume content"
+"Implement interview preparation tools with common questions based on resume content"
+Job Application Management:
+
+"Create a job application tracker that links to specific resume versions used"
+"Add application status tracking with follow-up reminders and notes"
+"Implement job board integration to apply directly with tailored resumes"
+"Create application analytics showing which resume versions get the most responses"
+Advanced Template Features
+Dynamic Templates:
+
+"Create smart templates that automatically adjust layout based on content length"
+"Add conditional sections that appear/disappear based on user's experience level"
+"Implement responsive templates that look great in both digital and print formats"
+"Create templates with built-in infographic elements for skills and achievements"
+Industry-Specific Templates:
+
+"Design specialized templates for creative fields with portfolio integration and visual elements"
+"Create academic CV templates with publication lists, research sections, and conference presentations"
+"Build tech-focused templates with GitHub integration, project showcases, and technical skill matrices"
+"Design executive templates with leadership achievements, board positions, and strategic accomplishments"
+User Experience Enhancements
+Onboarding & Guidance:
+
+"Create an intelligent onboarding flow that recommends templates based on user's industry and experience"
+"Add interactive tutorials and tooltips explaining best practices for each resume section"
+"Implement progress tracking with completion percentages and optimization scores"
+"Create resume strength analyzer with actionable improvement suggestions"
+Advanced Customization:
+
+"Add custom section builder where users can create unique sections beyond standard ones"
+"Implement advanced typography controls with font weight, size, and spacing adjustments"
+"Create layout builder with drag-and-drop section arrangement and custom spacing"
+"Add custom CSS injection for power users who want complete design control"
+Premium Features
+Professional Services:
+
+"Create premium template marketplace with designer-created, industry-specific templates"
+"Add professional resume review service integration with expert feedback"
+"Implement premium export options with custom watermarks and branding removal"
+"Create white-label solution for career services and educational institutions"
+Analytics & Insights:
+
+"Add resume performance analytics showing view counts, download rates, and employer engagement"
+"Create A/B testing for different resume versions to optimize for specific job applications"
+"Implement keyword optimization suggestions based on job posting analysis"
+"Add industry benchmarking to compare resume strength against similar professionals"
+Integration & Automation
+Third-Party Integrations:
+
+"Integrate with popular job boards (Indeed, LinkedIn, Glassdoor) for one-click applications"
+"Add CRM integration for recruiters and career counselors managing multiple candidates"
+"Create API for integration with career services platforms and HR systems"
+"Implement social media integration for sharing professional achievements and resume updates"
+Automation Features:
+
+"Create automated resume updates that pull latest information from LinkedIn profiles"
+"Add scheduled resume reviews with reminders to update content quarterly"
+"Implement automated job matching that suggests relevant positions based on resume content"
+"Create bulk resume generation for different job applications with targeted customizations"
+
+
+
+
+End-to-End Resume/CV Builder App Prompts
+
+Core App Setup
+Create a modern Resume/CV Builder application with React (frontend) and Node.js/Express (backend). Use Tailwind CSS for styling and MongoDB for data storage. The platform must support authentication (email, Google login), cloud storage for resumes, and a dashboard for managing multiple resume versions. Ensure responsive design with desktop, tablet, and mobile views.
+
+Resume Builder Flow
+Build a step-by-step resume wizard with a progress bar. Sections must include: Personal Info, Professional Summary, Experience, Education, Skills, Certifications, Projects, Languages, Awards, Interests. Allow users to add multiple entries per section with editable fields. Include real-time validation, placeholder suggestions, and AI-powered content recommendations.
+
+Template System
+Create 30+ resume templates with different layouts: Modern, Classic, Creative, Minimalist, Executive, Tech, Healthcare, Academic, Sales, Finance. Each template should have:
+
+Live preview
+
+Color palette customization (10+ schemes)
+
+Font customization (Google Fonts integration)
+
+Section rearrangement
+
+AI-Powered Features
+Integrate AI to suggest bullet points for job descriptions, auto-generate professional summaries, and recommend keywords from job descriptions. Add an AI-based grammar and tone checker.
+
+Export & Sharing
+Support export in PDF, DOCX, and TXT formats. Allow one-click LinkedIn import, and easy sharing via a unique resume link (with customizable privacy).
+
+Premium Features
+Add a free vs. premium tier. Premium features include advanced templates, unlimited resume versions, job application tracker, analytics (who viewed/downloaded resume), and priority AI suggestions.
+
+Job Application Tracker
+Provide a dashboard where users can save job postings, track application status (Applied, Interview, Offer, Rejected), set reminders, and attach resumes for each application.
+
+Analytics & Insights
+Show resume performance insights: total downloads, views, ATS (Applicant Tracking System) keyword match score, and suggestions for improvement.
+
+Admin Panel
+Build an admin dashboard to manage users, templates, premium subscriptions, analytics, and payment logs.
+
+Payment Integration
+Integrate Stripe/PayPal for subscription payments with monthly and yearly plans. Support coupons, trial periods, and cancellation.
+
+
+Master Prompt for Replit – Resume/CV Builder Website
+
+Build a full-featured Resume/CV Builder website using React (frontend), Node.js + Express (backend), MongoDB (database), and Tailwind CSS (styling).
+
+Core Features:
+
+Homepage
+
+A professional hero section with a title like: “Build Your Resume in Minutes”.
+
+Tagline: “Choose a template, fill in your details, and download a polished resume instantly.”
+
+CTA buttons: Start Building and View Templates.
+
+Display sample resume templates in a carousel/preview grid.
+
+Authentication & Dashboard
+
+Email/password login + Google login.
+
+User dashboard to create, edit, duplicate, or delete resumes.
+
+Ability to save multiple resume versions.
+
+Resume Builder Wizard (multi-step form)
+Sections:
+
+Personal Info (Name, Title, Contact, Links)
+
+Professional Summary (AI-generated suggestions)
+
+Work Experience (multiple jobs, bullet points, start/end dates)
+
+Education (degree, school, year, GPA optional)
+
+Skills (categorized + proficiency levels)
+
+Certifications & Awards
+
+Projects & Publications
+
+Languages
+
+Interests/Hobbies
+
+Features:
+
+Add/Edit/Delete entries dynamically.
+
+Real-time preview of resume while editing.
+
+Progress bar for navigation.
+
+Auto-save to database.
+
+Template System
+
+At least 10 professionally designed templates (Modern, Classic, Minimalist, Creative, Tech, Academic).
+
+Users can:
+
+Preview templates live.
+
+Change color scheme (10+ palettes).
+
+Change fonts (Google Fonts).
+
+Rearrange or toggle sections.
+
+AI Assistance
+
+AI-generated professional summaries based on user job role.
+
+AI-suggested bullet points for work experience.
+
+Keyword optimization from job description (ATS-ready).
+
+Grammar & tone checker.
+
+Export & Sharing
+
+Export resumes to PDF, DOCX, TXT.
+
+Share via public/private link.
+
+Direct LinkedIn import option.
+
+Job Application Tracker
+
+Users can log job applications.
+
+Track status: Applied, Interview, Offer, Rejected.
+
+Attach resume version used for each job.
+
+Add reminders & notes.
+
+Premium Features
+
+Free plan: Limited templates, 1 saved resume.
+
+Premium plan: Unlimited resumes, all templates, analytics, AI-enhanced content, job tracker.
+
+Subscription with Stripe/PayPal integration.
+
+Analytics
+
+Track number of resume views & downloads.
+
+ATS keyword match score.
+
+Suggestions to improve resume visibility.
+
+Admin Panel
+
+Manage users, templates, subscription plans.
+
+View analytics & payment logs.
+
+Technical Requirements:
+
+Frontend: React + Tailwind CSS (responsive, mobile-first).
+
+Backend: Node.js + Express.
+
+Database: MongoDB (store user resumes, accounts, subscriptions).
+
+Payments: Stripe or PayPal.
+
+Hosting: Make deployable on Replit or Vercel/Heroku.
+
+Security: JWT authentication, encrypted passwords.
+
+

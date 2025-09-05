@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import type { Resume, ResumeData } from "@/types/resume";
+import { mockResumeData } from "@/data/mock-resume-data";
 
 const STEPS = [
   { id: 1, name: "Personal", label: "Personal Info" },
@@ -189,7 +190,7 @@ export default function ResumeBuilder() {
         return (
           <SkillsForm
             data={resumeData.skills}
-            onChange={(data) => updateResumeData("skills", data)}
+            onChange={(data) => updateResumeData("skills", data.map(skill => ({ ...skill, level: skill.level || 'Intermediate' })))}
             onNext={nextStep}
             onPrev={prevStep}
           />

@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Sparkles } from "lucide-react";
+import { mockResumeData } from "@/data/mock-resume-data";
 
 const personalInfoSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -274,7 +276,28 @@ export default function PersonalInfoForm({ data, onChange, onNext }: PersonalInf
             )}
           />
 
-          <div className="flex justify-end pt-6">
+          <div className="flex justify-between pt-6">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                const mockData = mockResumeData.personalInfo;
+                form.setValue("name", mockData.name || "");
+                form.setValue("email", mockData.email || "");
+                form.setValue("phone", mockData.phone || "");
+                form.setValue("location", mockData.location || "");
+                form.setValue("website", mockData.website || "");
+                form.setValue("linkedin", mockData.linkedin || "");
+                form.setValue("github", mockData.github || "");
+                form.setValue("summary", mockResumeData.summary || "");
+                handleFormChange();
+              }}
+              className="flex items-center gap-2"
+              data-testid="button-use-demo-data"
+            >
+              <Sparkles className="w-4 h-4" />
+              Use Demo Data
+            </Button>
             <Button type="submit" data-testid="button-next-experience">
               Next: Experience
             </Button>

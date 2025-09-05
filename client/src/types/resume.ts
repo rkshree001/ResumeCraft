@@ -31,7 +31,34 @@ export interface Education {
 export interface Skill {
   name: string;
   category: string;
-  level: string;
+  level?: string;
+}
+
+export interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+}
+
+export interface Language {
+  name: string;
+  proficiency: string;
+}
+
+export interface Award {
+  name: string;
+  issuer: string;
+  date: string;
+  description?: string;
+}
+
+export interface Volunteering {
+  role: string;
+  organization: string;
+  startDate: string;
+  endDate?: string;
+  description?: string;
 }
 
 export interface Project {
@@ -63,6 +90,11 @@ export interface ResumeData {
   education: Education[];
   skills: Skill[];
   projects: Project[];
+  certifications?: Certification[];
+  languages?: Language[];
+  awards?: Award[];
+  volunteering?: Volunteering[];
+  interests?: string[];
   customSections: CustomSection[];
   settings: ResumeSettings;
 }
@@ -88,6 +120,11 @@ export interface Resume {
   education: Education[];
   skills: Skill[];
   projects: Project[];
+  certifications?: Certification[];
+  languages?: Language[];
+  awards?: Award[];
+  volunteering?: Volunteering[];
+  interests?: string[];
   customSections: CustomSection[];
   settings: ResumeSettings;
   isPublic: boolean;

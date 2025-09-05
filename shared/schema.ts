@@ -59,6 +59,11 @@ export const resumes = pgTable("resumes", {
   education: jsonb("education"), // array of education objects
   skills: jsonb("skills"), // array of skill objects
   projects: jsonb("projects"), // array of project objects
+  certifications: jsonb("certifications"), // array of certification objects
+  languages: jsonb("languages"), // array of language proficiency objects
+  awards: jsonb("awards"), // array of awards and honors
+  volunteering: jsonb("volunteering"), // array of volunteer experience
+  interests: jsonb("interests"), // array of interests and hobbies
   customSections: jsonb("custom_sections"), // additional sections
   settings: jsonb("settings"), // color scheme, font, etc.
   isPublic: boolean("is_public").default(false),

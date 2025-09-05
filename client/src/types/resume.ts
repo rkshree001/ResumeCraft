@@ -56,6 +56,7 @@ export interface ResumeSettings {
 }
 
 export interface ResumeData {
+  templateId?: string;
   personalInfo: PersonalInfo;
   summary: string;
   experiences: Experience[];

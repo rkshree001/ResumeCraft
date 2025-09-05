@@ -1,10 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
-  const { user, isAuthenticated, isLoading } = useAuth() as { user: any; isAuthenticated: boolean; isLoading: boolean; };
-
   return (
     <nav className="bg-card border-b border-border sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,61 +21,18 @@ export default function Navbar() {
             <Link href="/templates" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-templates">
               Templates
             </Link>
-            {isAuthenticated && (
-              <>
-                <Link href="/builder" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-builder">
-                  Builder
-                </Link>
-                <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-dashboard">
-                  Dashboard
-                </Link>
-              </>
-            )}
-            
-            {!isLoading && (
-              <>
-                {isAuthenticated ? (
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      {user?.profileImageUrl && (
-                        <img
-                          src={user.profileImageUrl}
-                          alt="Profile"
-                          className="w-8 h-8 rounded-full object-cover"
-                          data-testid="img-profile-avatar"
-                        />
-                      )}
-                      <span className="text-sm text-foreground" data-testid="text-user-name">
-                        {user?.firstName || user?.email}
-                      </span>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      onClick={() => window.location.href = "/api/logout"}
-                      data-testid="button-logout"
-                    >
-                      Sign Out
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-4">
-                    <Button
-                      variant="ghost"
-                      onClick={() => window.location.href = "/api/login"}
-                      data-testid="button-sign-in"
-                    >
-                      Sign In
-                    </Button>
-                    <Button
-                      onClick={() => window.location.href = "/api/login"}
-                      data-testid="button-get-started"
-                    >
-                      Get Started
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
+            <Link href="/builder" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-builder">
+              Builder
+            </Link>
+            <Link href="/home" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-dashboard">
+              Dashboard
+            </Link>
+            <Button
+              asChild
+              data-testid="button-get-started"
+            >
+              <Link href="/builder">Get Started</Link>
+            </Button>
           </div>
 
           {/* Mobile menu button */}

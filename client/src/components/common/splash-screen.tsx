@@ -72,11 +72,6 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-300 absolute -top-1 -right-1 sm:-top-2 sm:-right-2 animate-pulse" />
           </div>
           
-          {/* Rotating ring */}
-          <div className="absolute inset-0 rounded-2xl border-2 border-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin" 
-               style={{ animationDuration: '3s' }}>
-            <div className="w-full h-full bg-transparent rounded-2xl border-2 border-white/10" />
-          </div>
         </div>
 
         {/* Title */}

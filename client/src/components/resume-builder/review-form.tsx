@@ -43,6 +43,7 @@ export default function ReviewForm({ data, onChange, onPrev, resumeId }: ReviewF
       const saveData = {
         ...data,
         title: resumeTitle,
+        templateId: data.templateId || "18e42ec4-85fe-4cbc-8575-877c73824c14", // Default to Modern Professional
       };
 
       if (resumeId) {
@@ -66,7 +67,7 @@ export default function ReviewForm({ data, onChange, onPrev, resumeId }: ReviewF
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/";
         }, 500);
         return;
       }

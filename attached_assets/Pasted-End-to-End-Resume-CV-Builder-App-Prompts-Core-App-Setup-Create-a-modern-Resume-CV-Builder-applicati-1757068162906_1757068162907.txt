@@ -1,0 +1,39 @@
+End-to-End Resume/CV Builder App Prompts
+
+Core App Setup
+Create a modern Resume/CV Builder application with React (frontend) and Node.js/Express (backend). Use Tailwind CSS for styling and MongoDB for data storage. The platform must support authentication (email, Google login), cloud storage for resumes, and a dashboard for managing multiple resume versions. Ensure responsive design with desktop, tablet, and mobile views.
+
+Resume Builder Flow
+Build a step-by-step resume wizard with a progress bar. Sections must include: Personal Info, Professional Summary, Experience, Education, Skills, Certifications, Projects, Languages, Awards, Interests. Allow users to add multiple entries per section with editable fields. Include real-time validation, placeholder suggestions, and AI-powered content recommendations.
+
+Template System
+Create 30+ resume templates with different layouts: Modern, Classic, Creative, Minimalist, Executive, Tech, Healthcare, Academic, Sales, Finance. Each template should have:
+
+Live preview
+
+Color palette customization (10+ schemes)
+
+Font customization (Google Fonts integration)
+
+Section rearrangement
+
+AI-Powered Features
+Integrate AI to suggest bullet points for job descriptions, auto-generate professional summaries, and recommend keywords from job descriptions. Add an AI-based grammar and tone checker.
+
+Export & Sharing
+Support export in PDF, DOCX, and TXT formats. Allow one-click LinkedIn import, and easy sharing via a unique resume link (with customizable privacy).
+
+Premium Features
+Add a free vs. premium tier. Premium features include advanced templates, unlimited resume versions, job application tracker, analytics (who viewed/downloaded resume), and priority AI suggestions.
+
+Job Application Tracker
+Provide a dashboard where users can save job postings, track application status (Applied, Interview, Offer, Rejected), set reminders, and attach resumes for each application.
+
+Analytics & Insights
+Show resume performance insights: total downloads, views, ATS (Applicant Tracking System) keyword match score, and suggestions for improvement.
+
+Admin Panel
+Build an admin dashboard to manage users, templates, premium subscriptions, analytics, and payment logs.
+
+Payment Integration
+Integrate Stripe/PayPal for subscription payments with monthly and yearly plans. Support coupons, trial periods, and cancellation.

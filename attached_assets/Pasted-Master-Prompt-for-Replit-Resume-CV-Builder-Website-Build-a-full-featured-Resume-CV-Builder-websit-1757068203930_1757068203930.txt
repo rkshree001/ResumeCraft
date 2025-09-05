@@ -1,0 +1,132 @@
+Master Prompt for Replit – Resume/CV Builder Website
+
+Build a full-featured Resume/CV Builder website using React (frontend), Node.js + Express (backend), MongoDB (database), and Tailwind CSS (styling).
+
+Core Features:
+
+Homepage
+
+A professional hero section with a title like: “Build Your Resume in Minutes”.
+
+Tagline: “Choose a template, fill in your details, and download a polished resume instantly.”
+
+CTA buttons: Start Building and View Templates.
+
+Display sample resume templates in a carousel/preview grid.
+
+Authentication & Dashboard
+
+Email/password login + Google login.
+
+User dashboard to create, edit, duplicate, or delete resumes.
+
+Ability to save multiple resume versions.
+
+Resume Builder Wizard (multi-step form)
+Sections:
+
+Personal Info (Name, Title, Contact, Links)
+
+Professional Summary (AI-generated suggestions)
+
+Work Experience (multiple jobs, bullet points, start/end dates)
+
+Education (degree, school, year, GPA optional)
+
+Skills (categorized + proficiency levels)
+
+Certifications & Awards
+
+Projects & Publications
+
+Languages
+
+Interests/Hobbies
+
+Features:
+
+Add/Edit/Delete entries dynamically.
+
+Real-time preview of resume while editing.
+
+Progress bar for navigation.
+
+Auto-save to database.
+
+Template System
+
+At least 10 professionally designed templates (Modern, Classic, Minimalist, Creative, Tech, Academic).
+
+Users can:
+
+Preview templates live.
+
+Change color scheme (10+ palettes).
+
+Change fonts (Google Fonts).
+
+Rearrange or toggle sections.
+
+AI Assistance
+
+AI-generated professional summaries based on user job role.
+
+AI-suggested bullet points for work experience.
+
+Keyword optimization from job description (ATS-ready).
+
+Grammar & tone checker.
+
+Export & Sharing
+
+Export resumes to PDF, DOCX, TXT.
+
+Share via public/private link.
+
+Direct LinkedIn import option.
+
+Job Application Tracker
+
+Users can log job applications.
+
+Track status: Applied, Interview, Offer, Rejected.
+
+Attach resume version used for each job.
+
+Add reminders & notes.
+
+Premium Features
+
+Free plan: Limited templates, 1 saved resume.
+
+Premium plan: Unlimited resumes, all templates, analytics, AI-enhanced content, job tracker.
+
+Subscription with Stripe/PayPal integration.
+
+Analytics
+
+Track number of resume views & downloads.
+
+ATS keyword match score.
+
+Suggestions to improve resume visibility.
+
+Admin Panel
+
+Manage users, templates, subscription plans.
+
+View analytics & payment logs.
+
+Technical Requirements:
+
+Frontend: React + Tailwind CSS (responsive, mobile-first).
+
+Backend: Node.js + Express.
+
+Database: MongoDB (store user resumes, accounts, subscriptions).
+
+Payments: Stripe or PayPal.
+
+Hosting: Make deployable on Replit or Vercel/Heroku.
+
+Security: JWT authentication, encrypted passwords.

@@ -1,4 +1,5 @@
-import type { ResumeData } from "@/types/resume";
+import React from 'react';
+import type { ResumeData } from "../types/resume";
 
 export function renderResumeTemplate(data: ResumeData) {
   const { personalInfo, summary, experiences, education, skills, projects } = data;
@@ -14,7 +15,7 @@ export function renderResumeTemplate(data: ResumeData) {
           <div className="text-gray-600 text-sm space-x-2" data-testid="preview-contact">
             <span>{personalInfo.email}</span>
             {personalInfo.phone && <span>• {personalInfo.phone}</span>}
-            {personalInfo.location && <span>• {personalInfo.location}</span>
+            {personalInfo.location && <span>• {personalInfo.location}</span>}
           </div>
         )}
         {(personalInfo.website || personalInfo.linkedin || personalInfo.github) && (
@@ -102,12 +103,12 @@ export function renderResumeTemplate(data: ResumeData) {
           </h2>
           <div className="text-xs">
             {Object.entries(
-              skills.reduce((acc, skill) => {
+              skills.reduce((acc: Record<string, string[]>, skill) => {
                 if (!acc[skill.category]) acc[skill.category] = [];
                 acc[skill.category].push(skill.name);
                 return acc;
-              }, {} as Record<string, string[]>)
-            ).map(([category, skillNames], index) => (
+              }, {})
+            ).map(([category, skillNames]: [string, string[]], index) => (
               <div key={index} className="mb-1" data-testid={`preview-skills-${category.replace(/\s+/g, '-').toLowerCase()}`}>
                 <strong>{category}:</strong> {skillNames.join(', ')}
               </div>

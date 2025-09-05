@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth() as { user: any; isAuthenticated: boolean; isLoading: boolean; };
 
   return (
     <nav className="bg-card border-b border-border sticky top-0 z-50">

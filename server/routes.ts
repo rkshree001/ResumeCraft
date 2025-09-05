@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
-import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema } from "@shared/schema";
+import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema, insertJobApplicationSchema } from "@shared/schema";
 import { randomBytes } from "crypto";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -252,6 +252,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error initializing templates:", error);
       res.status(500).json({ message: "Failed to initialize templates" });
+    }
+  });
+
+  // Job Application routes
+  app.get("/api/job-applications", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const jobs = await storage.getUserJobApplications(userId);
+      res.json(jobs);
+    } catch (error) {
+      console.error("Error fetching job applications:", error);
+      res.status(500).json({ message: "Failed to fetch job applications" });
+    }
+  });
+
+  app.post("/api/job-applications", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const jobData = insertJobApplicationSchema.parse(req.body);
+      const job = await storage.createJobApplication(userId, jobData);
+      res.status(201).json(job);
+    } catch (error) {
+      console.error("Error creating job application:", error);
+      res.status(400).json({ message: "Failed to create job application" });
+    }
+  });
+
+  app.patch("/api/job-applications/:id", isAuthenticated, async (req: any, res) => {
+    try {
+      const job = await storage.updateJobApplication(req.params.id, req.body);
+      res.json(job);
+    } catch (error) {
+      console.error("Error updating job application:", error);
+      res.status(400).json({ message: "Failed to update job application" });
+    }
+  });
+
+  app.delete("/api/job-applications/:id", isAuthenticated, async (req: any, res) => {
+    try {
+      await storage.deleteJobApplication(req.params.id);
+      res.status(204).send();
+    } catch (error) {
+      console.error("Error deleting job application:", error);
+      res.status(400).json({ message: "Failed to delete job application" });
     }
   });
 

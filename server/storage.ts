@@ -3,6 +3,7 @@ import {
   templates,
   resumes,
   resumeShares,
+  jobApplications,
   type User,
   type UpsertUser,
   type Template,
@@ -11,9 +12,11 @@ import {
   type InsertResume,
   type ResumeShare,
   type InsertResumeShare,
+  type JobApplication,
+  type InsertJobApplication,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, sql } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -39,6 +42,13 @@ export interface IStorage {
   createResumeShare(share: InsertResumeShare): Promise<ResumeShare>;
   getResumeByShareToken(token: string): Promise<Resume | undefined>;
   deactivateResumeShare(id: string): Promise<void>;
+  
+  // Job application operations
+  createJobApplication(userId: string, jobData: Omit<InsertJobApplication, 'userId'>): Promise<JobApplication>;
+  getUserJobApplications(userId: string): Promise<JobApplication[]>;
+  getJobApplication(id: string): Promise<JobApplication | undefined>;
+  updateJobApplication(id: string, jobData: Partial<Omit<InsertJobApplication, 'userId'>>): Promise<JobApplication>;
+  deleteJobApplication(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -113,14 +123,14 @@ export class DatabaseStorage implements IStorage {
   async incrementResumeView(id: string): Promise<void> {
     await db
       .update(resumes)
-      .set({ viewCount: sql`${resumes.viewCount} + 1` })
+      .set({ viewCount: sql`view_count + 1` })
       .where(eq(resumes.id, id));
   }
 
   async incrementResumeDownload(id: string): Promise<void> {
     await db
       .update(resumes)
-      .set({ downloadCount: sql`${resumes.downloadCount} + 1` })
+      .set({ downloadCount: sql`download_count + 1` })
       .where(eq(resumes.id, id));
   }
 
@@ -151,6 +161,45 @@ export class DatabaseStorage implements IStorage {
       .update(resumeShares)
       .set({ isActive: false })
       .where(eq(resumeShares.id, id));
+  }
+  // Job application methods
+  async createJobApplication(userId: string, jobData: Omit<InsertJobApplication, 'userId'>): Promise<JobApplication> {
+    const [job] = await db
+      .insert(jobApplications)
+      .values({ ...jobData, userId })
+      .returning();
+    return job;
+  }
+
+  async getUserJobApplications(userId: string): Promise<JobApplication[]> {
+    return db
+      .select()
+      .from(jobApplications)
+      .where(eq(jobApplications.userId, userId))
+      .orderBy(desc(jobApplications.appliedDate));
+  }
+
+  async getJobApplication(id: string): Promise<JobApplication | undefined> {
+    const [job] = await db
+      .select()
+      .from(jobApplications)
+      .where(eq(jobApplications.id, id));
+    return job;
+  }
+
+  async updateJobApplication(id: string, jobData: Partial<Omit<InsertJobApplication, 'userId'>>): Promise<JobApplication> {
+    const [job] = await db
+      .update(jobApplications)
+      .set({ ...jobData, updatedAt: new Date() })
+      .where(eq(jobApplications.id, id))
+      .returning();
+    return job;
+  }
+
+  async deleteJobApplication(id: string): Promise<void> {
+    await db
+      .delete(jobApplications)
+      .where(eq(jobApplications.id, id));
   }
 }
 

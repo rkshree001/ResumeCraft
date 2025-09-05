@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Template } from "@/types/resume";
 
 export default function Landing() {
-  const { data: templates = [] } = useQuery({
+  const { data: templates = [] } = useQuery<Template[]>({
     queryKey: ["/api/templates"],
     retry: false,
   });

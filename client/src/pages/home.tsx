@@ -9,13 +9,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
-import type { Resume } from "@/types/resume";
+import type { Resume, User } from "@/types/resume";
 
 export default function Home() {
-  const { user, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuth() as { user: User | null; isLoading: boolean; };
   const { toast } = useToast();
 
-  const { data: resumes = [], isLoading, error } = useQuery({
+  const { data: resumes = [], isLoading, error } = useQuery<Resume[]>({
     queryKey: ["/api/resumes"],
     retry: false,
   });
@@ -60,7 +60,7 @@ export default function Home() {
         {/* Welcome Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2" data-testid="text-welcome">
-            Welcome back{user?.firstName ? `, ${user.firstName}` : ''}!
+            Welcome back{(user as any)?.firstName ? `, ${(user as any).firstName}` : ''}!
           </h1>
           <p className="text-muted-foreground">
             Manage your resumes and track your job application progress.

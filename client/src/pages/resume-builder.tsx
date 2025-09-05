@@ -48,7 +48,7 @@ export default function ResumeBuilder() {
   const queryClient = useQueryClient();
 
   // Load existing resume if editing
-  const { data: existingResume, error } = useQuery({
+  const { data: existingResume, error } = useQuery<Resume>({
     queryKey: ["/api/resumes", resumeId],
     enabled: !!resumeId,
     retry: false,

@@ -18,7 +18,7 @@ const CATEGORIES = [
 export default function Templates() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const { data: templates = [], isLoading } = useQuery({
+  const { data: templates = [], isLoading } = useQuery<Template[]>({
     queryKey: ["/api/templates"],
     retry: false,
   });

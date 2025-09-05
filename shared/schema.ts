@@ -78,11 +78,29 @@ export const resumeShares = pgTable("resume_shares", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Job Applications table
+export const jobApplications = pgTable("job_applications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  company: varchar("company").notNull(),
+  position: varchar("position").notNull(),
+  location: varchar("location"),
+  salary: varchar("salary"),
+  status: varchar("status").notNull().default("applied"), // applied, interview, offer, rejected
+  appliedDate: timestamp("applied_date").notNull(),
+  jobUrl: varchar("job_url"),
+  notes: text("notes"),
+  resumeId: varchar("resume_id").references(() => resumes.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Export schemas and types
 export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertTemplateSchema = createInsertSchema(templates).omit({ id: true, createdAt: true });
 export const insertResumeSchema = createInsertSchema(resumes).omit({ id: true, createdAt: true, updatedAt: true, viewCount: true, downloadCount: true });
 export const insertResumeShareSchema = createInsertSchema(resumeShares).omit({ id: true, createdAt: true });
+export const insertJobApplicationSchema = createInsertSchema(jobApplications).omit({ id: true, createdAt: true, updatedAt: true });
 
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
@@ -92,3 +110,5 @@ export type Resume = typeof resumes.$inferSelect;
 export type InsertResume = z.infer<typeof insertResumeSchema>;
 export type ResumeShare = typeof resumeShares.$inferSelect;
 export type InsertResumeShare = z.infer<typeof insertResumeShareSchema>;
+export type JobApplication = typeof jobApplications.$inferSelect;
+export type InsertJobApplication = z.infer<typeof insertJobApplicationSchema>;

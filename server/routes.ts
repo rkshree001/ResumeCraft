@@ -1,24 +1,19 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
 import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema, insertJobApplicationSchema } from "@shared/schema";
 import { randomBytes } from "crypto";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
-  await setupAuth(app);
 
-  // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
-    try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      res.status(500).json({ message: "Failed to fetch user" });
-    }
+  // Mock user for demo purposes
+  app.get('/api/auth/user', async (req: any, res) => {
+    res.json({ 
+      id: 'demo-user', 
+      email: 'demo@example.com',
+      firstName: 'Demo',
+      lastName: 'User' 
+    });
   });
 
   // Template routes
@@ -45,7 +40,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/templates", isAuthenticated, async (req, res) => {
+  app.post("/api/templates", async (req, res) => {
     try {
       const templateData = insertTemplateSchema.parse(req.body);
       const template = await storage.createTemplate(templateData);
@@ -57,9 +52,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Resume routes
-  app.get("/api/resumes", isAuthenticated, async (req: any, res) => {
+  app.get("/api/resumes", async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = 'demo-user';
       const resumes = await storage.getUserResumes(userId);
       res.json(resumes);
     } catch (error) {
@@ -68,17 +63,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/resumes/:id", isAuthenticated, async (req: any, res) => {
+  app.get("/api/resumes/:id", async (req: any, res) => {
     try {
       const resume = await storage.getResume(req.params.id);
       if (!resume) {
         return res.status(404).json({ message: "Resume not found" });
-      }
-      
-      // Check if user owns this resume
-      const userId = req.user.claims.sub;
-      if (resume.userId !== userId) {
-        return res.status(403).json({ message: "Access denied" });
       }
       
       res.json(resume);
@@ -88,9 +77,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/resumes", isAuthenticated, async (req: any, res) => {
+  app.post("/api/resumes", async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = 'demo-user';
       const resumeData = insertResumeSchema.parse({
         ...req.body,
         userId,
@@ -103,16 +92,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/resumes/:id", isAuthenticated, async (req: any, res) => {
+  app.patch("/api/resumes/:id", async (req: any, res) => {
     try {
       const resumeId = req.params.id;
-      const userId = req.user.claims.sub;
-      
-      // Check if user owns this resume
-      const existingResume = await storage.getResume(resumeId);
-      if (!existingResume || existingResume.userId !== userId) {
-        return res.status(403).json({ message: "Access denied" });
-      }
       
       const resumeData = insertResumeSchema.partial().parse(req.body);
       const updatedResume = await storage.updateResume(resumeId, resumeData);
@@ -123,16 +105,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/resumes/:id", isAuthenticated, async (req: any, res) => {
+  app.delete("/api/resumes/:id", async (req: any, res) => {
     try {
       const resumeId = req.params.id;
-      const userId = req.user.claims.sub;
-      
-      // Check if user owns this resume
-      const existingResume = await storage.getResume(resumeId);
-      if (!existingResume || existingResume.userId !== userId) {
-        return res.status(403).json({ message: "Access denied" });
-      }
       
       await storage.deleteResume(resumeId);
       res.status(204).send();
@@ -164,16 +139,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Resume sharing
-  app.post("/api/resumes/:id/share", isAuthenticated, async (req: any, res) => {
+  app.post("/api/resumes/:id/share", async (req: any, res) => {
     try {
       const resumeId = req.params.id;
-      const userId = req.user.claims.sub;
-      
-      // Check if user owns this resume
-      const existingResume = await storage.getResume(resumeId);
-      if (!existingResume || existingResume.userId !== userId) {
-        return res.status(403).json({ message: "Access denied" });
-      }
       
       const shareToken = randomBytes(32).toString('hex');
       const shareData = insertResumeShareSchema.parse({
@@ -256,9 +224,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Job Application routes
-  app.get("/api/job-applications", isAuthenticated, async (req: any, res) => {
+  app.get("/api/job-applications", async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = 'demo-user';
       const jobs = await storage.getUserJobApplications(userId);
       res.json(jobs);
     } catch (error) {
@@ -267,9 +235,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/job-applications", isAuthenticated, async (req: any, res) => {
+  app.post("/api/job-applications", async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = 'demo-user';
       const jobData = insertJobApplicationSchema.parse(req.body);
       const job = await storage.createJobApplication(userId, jobData);
       res.status(201).json(job);
@@ -279,7 +247,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/job-applications/:id", isAuthenticated, async (req: any, res) => {
+  app.patch("/api/job-applications/:id", async (req: any, res) => {
     try {
       const job = await storage.updateJobApplication(req.params.id, req.body);
       res.json(job);
@@ -289,7 +257,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/job-applications/:id", isAuthenticated, async (req: any, res) => {
+  app.delete("/api/job-applications/:id", async (req: any, res) => {
     try {
       await storage.deleteJobApplication(req.params.id);
       res.status(204).send();

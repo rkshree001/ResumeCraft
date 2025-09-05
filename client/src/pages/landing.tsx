@@ -21,26 +21,26 @@ export default function Landing() {
       <section className="bg-gradient-to-br from-background via-card to-muted py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 px-4">
               Build Your Perfect Resume
               <span className="text-primary block">in Minutes</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Choose from 30+ professional templates, customize with AI-powered suggestions, and create an ATS-optimized resume that gets you noticed.
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4">
+              Choose from professional templates, customize with ease, and create an ATS-optimized resume that gets you noticed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="text-lg px-8 py-4"
-                onClick={() => window.location.href = "/api/login"}
+                className="text-lg px-6 py-4 sm:px-8"
+                asChild
                 data-testid="button-start-building"
               >
-                Start Building Free
+                <Link href="/builder">Start Building Free</Link>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-lg px-8 py-4"
+                className="text-lg px-6 py-4 sm:px-8"
                 asChild
                 data-testid="button-view-templates"
               >

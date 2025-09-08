@@ -218,51 +218,101 @@ export default function ResumeBuilder() {
     }
   };
 
+  const getStepTitle = (step: number): string => {
+    const titles = [
+      "Personal Information",
+      "Work Experience", 
+      "Education",
+      "Skills",
+      "Projects",
+      "Review & Export"
+    ];
+    return titles[step - 1] || "Resume Builder";
+  };
+
+  const getStepDescription = (step: number): string => {
+    const descriptions = [
+      "Start with your basic contact information and professional summary.",
+      "Add your work experience and professional achievements.",
+      "Include your educational background and qualifications.",
+      "Highlight your technical and professional skills.",
+      "Showcase your projects and accomplishments.",
+      "Review your resume and export when ready."
+    ];
+    return descriptions[step - 1] || "";
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        {/* Progress Header */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Resume Builder
+            </h1>
+            <div className="text-sm text-muted-foreground">
+              Step {currentStep} of {STEPS.length}
+            </div>
+          </div>
+          
           {/* Progress Bar */}
-          <div className="bg-secondary/20 px-6 py-4 border-b">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-foreground" data-testid="text-resume-builder">
-                Resume Builder
-              </h3>
-              <span className="text-sm text-muted-foreground" data-testid="text-step-indicator">
-                Step {currentStep} of {STEPS.length}
+          <div className="w-full bg-muted rounded-full h-3 mb-2">
+            <div 
+              className="bg-primary h-3 rounded-full transition-all duration-300 flex items-center justify-end pr-2"
+              style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
+            >
+              <span className="text-xs font-medium text-white">
+                {Math.round((currentStep / STEPS.length) * 100)}%
               </span>
             </div>
-            
-            <StepIndicator 
-              steps={STEPS}
-              currentStep={currentStep}
-              onStepClick={setCurrentStep}
-            />
-            
-            {saveMutation.isPending && (
-              <div className="flex items-center text-sm text-muted-foreground mt-2">
-                <svg className="animate-spin w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                </svg>
-                Auto-saving...
+          </div>
+          
+          {/* Step Indicator */}
+          <StepIndicator 
+            steps={STEPS}
+            currentStep={currentStep}
+            onStepClick={setCurrentStep}
+          />
+          
+          {saveMutation.isPending && (
+            <div className="flex items-center text-sm text-muted-foreground mt-2">
+              <svg className="animate-spin w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+              </svg>
+              Auto-saving...
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+          {/* Form Section */}
+          <div className="space-y-6">
+            <Card>
+              <div className="p-6">
+                <div className="mb-6">
+                  <h2 className="text-lg font-semibold text-foreground">
+                    {getStepTitle(currentStep)}
+                  </h2>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {getStepDescription(currentStep)}
+                  </p>
+                </div>
+                {renderCurrentStep()}
               </div>
-            )}
+            </Card>
           </div>
 
-          <div className="flex">
-            {/* Form Section */}
-            <div className="w-1/2 p-8 border-r">
-              {renderCurrentStep()}
-            </div>
-
-            {/* Live Preview Section */}
-            <div className="w-1/2 bg-muted/20 p-8">
-              <LivePreview data={resumeData} />
-            </div>
+          {/* Preview Section */}
+          <div className="xl:sticky xl:top-4">
+            <LivePreview data={resumeData} />
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );

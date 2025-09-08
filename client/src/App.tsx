@@ -12,6 +12,7 @@ import Templates from "@/pages/templates";
 import EnhancedTemplates from "@/pages/enhanced-templates";
 import Settings from "@/pages/settings";
 import MyResumes from "@/pages/my-resumes";
+import { ResumeUpload } from "@/components/ResumeUpload";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/templates" component={Templates} />
       <Route path="/enhanced-templates" component={EnhancedTemplates} />
       <Route path="/my-resumes" component={MyResumes} />
+      <Route path="/upload" component={ResumeUpload} />
       <Route path="/settings" component={Settings} />
       <Route path="/builder/:resumeId?" component={ResumeBuilder} />
       <Route component={NotFound} />

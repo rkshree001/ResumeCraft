@@ -1,18 +1,69 @@
 import type { ResumeData } from "@/types/resume";
 
-// Template categories and their variations
-export const templateCategories = [
-  { id: 'modern', name: 'Modern', description: 'Clean, contemporary designs' },
-  { id: 'classic', name: 'Classic', description: 'Traditional, professional layouts' },
-  { id: 'creative', name: 'Creative', description: 'Colorful, unique designs' },
-  { id: 'minimalist', name: 'Minimalist', description: 'Simple, clean layouts' },
-  { id: 'executive', name: 'Executive', description: 'High-level professional designs' },
-  { id: 'tech', name: 'Tech', description: 'Technology-focused layouts' },
-  { id: 'healthcare', name: 'Healthcare', description: 'Medical industry designs' },
-  { id: 'academic', name: 'Academic', description: 'Education and research layouts' },
-  { id: 'sales', name: 'Sales', description: 'Sales and marketing focused' },
-  { id: 'finance', name: 'Finance', description: 'Financial industry layouts' }
+// Template categories organized by style, industry, and role
+export const templateStyles = [
+  { id: 'minimalist', name: 'Minimalist', description: 'Clean, simple, ATS-friendly designs' },
+  { id: 'creative', name: 'Creative', description: 'Bold, unique, infographic-style layouts' },
+  { id: 'modern', name: 'Modern', description: 'Contemporary, professional designs' },
+  { id: 'executive', name: 'Executive', description: 'Premium, leadership-focused layouts' },
+  { id: 'classic', name: 'Classic', description: 'Traditional, conservative formats' },
+  { id: 'portfolio', name: 'Portfolio', description: 'Visual, project-showcase layouts' }
 ];
+
+export const industries = [
+  { id: 'tech', name: 'Technology', description: 'Software, IT, and tech companies' },
+  { id: 'healthcare', name: 'Healthcare', description: 'Medical, nursing, and health services' },
+  { id: 'finance', name: 'Finance', description: 'Banking, investment, and financial services' },
+  { id: 'education', name: 'Education', description: 'Teaching, research, and academic roles' },
+  { id: 'marketing', name: 'Marketing', description: 'Digital marketing, advertising, and PR' },
+  { id: 'sales', name: 'Sales', description: 'Sales, business development, and account management' },
+  { id: 'consulting', name: 'Consulting', description: 'Management and strategy consulting' },
+  { id: 'creative', name: 'Creative', description: 'Design, arts, and creative industries' },
+  { id: 'retail', name: 'Retail', description: 'Retail, customer service, and hospitality' },
+  { id: 'nonprofit', name: 'Nonprofit', description: 'NGOs, social impact, and community work' }
+];
+
+export const jobRoles = [
+  // Technical Roles
+  { id: 'software-engineer', name: 'Software Engineer', category: 'tech' },
+  { id: 'data-scientist', name: 'Data Scientist', category: 'tech' },
+  { id: 'devops-engineer', name: 'DevOps Engineer', category: 'tech' },
+  { id: 'product-manager', name: 'Product Manager', category: 'tech' },
+  { id: 'ux-designer', name: 'UX/UI Designer', category: 'creative' },
+  { id: 'cybersecurity', name: 'Cybersecurity Specialist', category: 'tech' },
+  { id: 'ai-engineer', name: 'AI/ML Engineer', category: 'tech' },
+  { id: 'cloud-architect', name: 'Cloud Architect', category: 'tech' },
+  // Healthcare Roles
+  { id: 'nurse', name: 'Registered Nurse', category: 'healthcare' },
+  { id: 'doctor', name: 'Physician', category: 'healthcare' },
+  { id: 'medical-assistant', name: 'Medical Assistant', category: 'healthcare' },
+  { id: 'pharmacist', name: 'Pharmacist', category: 'healthcare' },
+  { id: 'therapist', name: 'Physical Therapist', category: 'healthcare' },
+  // Finance Roles
+  { id: 'financial-analyst', name: 'Financial Analyst', category: 'finance' },
+  { id: 'cfo', name: 'Chief Financial Officer', category: 'finance' },
+  { id: 'investment-banker', name: 'Investment Banker', category: 'finance' },
+  { id: 'accountant', name: 'Accountant', category: 'finance' },
+  { id: 'risk-manager', name: 'Risk Manager', category: 'finance' },
+  // Leadership/Executive
+  { id: 'ceo', name: 'Chief Executive Officer', category: 'executive' },
+  { id: 'cto', name: 'Chief Technology Officer', category: 'executive' },
+  { id: 'vp-sales', name: 'VP of Sales', category: 'sales' },
+  { id: 'director', name: 'Director', category: 'executive' },
+  // Sales & Marketing
+  { id: 'sales-manager', name: 'Sales Manager', category: 'sales' },
+  { id: 'marketing-manager', name: 'Marketing Manager', category: 'marketing' },
+  { id: 'business-dev', name: 'Business Development', category: 'sales' },
+  { id: 'account-manager', name: 'Account Manager', category: 'sales' },
+  // Education & Academic
+  { id: 'teacher', name: 'Teacher', category: 'education' },
+  { id: 'professor', name: 'Professor', category: 'education' },
+  { id: 'researcher', name: 'Research Scientist', category: 'education' },
+  { id: 'student', name: 'Graduate Student', category: 'education' }
+];
+
+// Legacy category mapping for backward compatibility
+export const templateCategories = templateStyles;
 
 // Mock templates data (120+ templates)
 export const mockTemplates = [

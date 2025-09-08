@@ -34,6 +34,24 @@ export default function LivePreview({ data }: LivePreviewProps) {
               <Button
                 variant="outline"
                 size="sm"
+                onClick={() => setPreviewScale(Math.min(1, previewScale + 0.1))}
+                disabled={previewScale >= 1}
+                title="Zoom In"
+              >
+                +
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPreviewScale(Math.max(0.3, previewScale - 0.1))}
+                disabled={previewScale <= 0.3}
+                title="Zoom Out"
+              >
+                -
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={toggleFullscreen}
                 className="hidden sm:flex"
               >

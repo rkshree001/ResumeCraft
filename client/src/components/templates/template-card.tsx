@@ -44,78 +44,87 @@ export default function TemplateCard({ template, onUse }: TemplateCardProps) {
     switch (category.toLowerCase()) {
       case 'modern':
         return (
-          <div className="bg-white rounded-lg p-4 h-full shadow-sm">
-            <div className="h-6 bg-primary rounded mb-2"></div>
-            <div className="h-3 bg-primary/60 rounded mb-4 w-2/3"></div>
-            <div className="space-y-2 mb-4">
-              <div className="h-2 bg-gray-300 rounded"></div>
-              <div className="h-2 bg-gray-300 rounded w-5/6"></div>
-              <div className="h-2 bg-gray-300 rounded w-4/6"></div>
+          <div className="bg-white rounded-lg p-3 h-full shadow-sm text-xs leading-tight">
+            <div className="border-b border-primary pb-2 mb-3">
+              <h3 className="font-bold text-gray-900 text-sm">Sarah Johnson</h3>
+              <p className="text-gray-600 text-xs">Senior Software Engineer</p>
+              <p className="text-gray-500 text-xs">sarah.johnson@email.com | (555) 123-4567</p>
             </div>
-            <div className="h-4 bg-gray-800 rounded mb-2 w-3/4"></div>
-            <div className="space-y-1">
-              <div className="h-1.5 bg-gray-400 rounded"></div>
-              <div className="h-1.5 bg-gray-400 rounded w-4/5"></div>
-              <div className="h-1.5 bg-gray-400 rounded w-3/5"></div>
+            <div className="mb-3">
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">PROFESSIONAL SUMMARY</h4>
+              <p className="text-gray-700 text-xs leading-relaxed">Results-driven software engineer with 5+ years developing scalable web applications using React, Node.js, and cloud technologies.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">WORK EXPERIENCE</h4>
+              <div className="text-xs">
+                <p className="font-medium text-gray-800">Senior Software Engineer</p>
+                <p className="text-gray-600">TechCorp • 2021-Present</p>
+              </div>
             </div>
           </div>
         );
       case 'classic':
         return (
-          <div className="bg-white rounded-lg p-4 h-full shadow-sm">
-            <div className="text-center mb-3">
-              <div className="h-4 bg-gray-800 rounded mb-1 mx-auto w-3/4"></div>
-              <div className="h-2 bg-gray-600 rounded mx-auto w-1/2"></div>
+          <div className="bg-white rounded-lg p-3 h-full shadow-sm text-xs leading-tight">
+            <div className="text-center mb-3 border-b border-gray-300 pb-2">
+              <h3 className="font-bold text-gray-900 text-sm">Michael Chen</h3>
+              <p className="text-gray-600 text-xs">Project Manager</p>
+              <p className="text-gray-500 text-xs">michael.chen@email.com</p>
             </div>
-            <div className="h-px bg-gray-300 mb-3"></div>
-            <div className="space-y-2 mb-3">
-              <div className="h-2 bg-gray-400 rounded"></div>
-              <div className="h-2 bg-gray-400 rounded w-5/6"></div>
+            <div className="mb-3">
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">OBJECTIVE</h4>
+              <p className="text-gray-700 text-xs leading-relaxed">Experienced project manager seeking to leverage expertise in agile methodologies and team leadership.</p>
             </div>
-            <div className="h-3 bg-gray-700 rounded mb-2 w-2/3"></div>
-            <div className="space-y-1">
-              <div className="h-1.5 bg-gray-400 rounded"></div>
-              <div className="h-1.5 bg-gray-400 rounded w-4/5"></div>
+            <div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">EXPERIENCE</h4>
+              <div className="text-xs">
+                <p className="font-medium text-gray-800">Senior Project Manager</p>
+                <p className="text-gray-600">GlobalTech Inc • 2019-Present</p>
+              </div>
             </div>
           </div>
         );
       case 'creative':
         return (
-          <div className="bg-white rounded-lg p-4 h-full shadow-sm">
-            <div className="flex items-start space-x-3 mb-3">
-              <div className="w-8 h-8 bg-accent/30 rounded-full"></div>
+          <div className="bg-white rounded-lg p-3 h-full shadow-sm text-xs leading-tight">
+            <div className="flex items-start space-x-2 mb-3">
+              <div className="w-6 h-6 bg-purple-200 rounded-full flex items-center justify-center text-purple-700 font-bold text-xs">A</div>
               <div className="flex-1">
-                <div className="h-3 bg-accent rounded mb-1"></div>
-                <div className="h-2 bg-accent/60 rounded w-2/3"></div>
+                <h3 className="font-bold text-gray-900 text-sm">Alex Rivera</h3>
+                <p className="text-gray-600 text-xs">UX/UI Designer</p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 mb-3">
-              <div className="h-6 bg-accent/20 rounded"></div>
-              <div className="h-6 bg-accent/20 rounded"></div>
-              <div className="h-6 bg-accent/20 rounded"></div>
+            <div className="grid grid-cols-3 gap-1 mb-3">
+              <div className="text-xs text-center py-1 px-1 bg-purple-100 text-purple-700 rounded">Figma</div>
+              <div className="text-xs text-center py-1 px-1 bg-purple-100 text-purple-700 rounded">Adobe</div>
+              <div className="text-xs text-center py-1 px-1 bg-purple-100 text-purple-700 rounded">Sketch</div>
             </div>
-            <div className="space-y-1">
-              <div className="h-2 bg-gray-300 rounded"></div>
-              <div className="h-2 bg-gray-300 rounded w-4/5"></div>
-              <div className="h-2 bg-gray-300 rounded w-3/5"></div>
+            <div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">EXPERIENCE</h4>
+              <div className="text-xs">
+                <p className="font-medium text-gray-800">Senior UX Designer</p>
+                <p className="text-gray-600">DesignStudio • 2020-Present</p>
+              </div>
             </div>
           </div>
         );
       default:
         return (
-          <div className="bg-white rounded-lg p-4 h-full shadow-sm">
-            <div className="mb-4">
-              <div className="h-5 bg-gray-900 rounded mb-2 w-2/3"></div>
-              <div className="h-2 bg-gray-500 rounded w-1/2"></div>
+          <div className="bg-white rounded-lg p-3 h-full shadow-sm text-xs leading-tight">
+            <div className="mb-3">
+              <h3 className="font-bold text-gray-900 text-sm">Emma Davis</h3>
+              <p className="text-gray-600 text-xs">Marketing Specialist</p>
+              <p className="text-gray-500 text-xs">emma.davis@email.com</p>
             </div>
-            <div className="w-full h-px bg-gray-200 mb-4"></div>
-            <div className="space-y-3">
-              <div>
-                <div className="h-2 bg-gray-700 rounded mb-1 w-1/3"></div>
-                <div className="space-y-1">
-                  <div className="h-1.5 bg-gray-400 rounded"></div>
-                  <div className="h-1.5 bg-gray-400 rounded w-4/5"></div>
-                </div>
+            <div className="border-t border-gray-200 pt-2 mb-3">
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">SUMMARY</h4>
+              <p className="text-gray-700 text-xs leading-relaxed">Digital marketing professional with expertise in content strategy, SEO, and social media management.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-800 text-xs mb-1">EXPERIENCE</h4>
+              <div className="text-xs">
+                <p className="font-medium text-gray-800">Marketing Specialist</p>
+                <p className="text-gray-600">MarketPro Agency • 2022-Present</p>
               </div>
             </div>
           </div>

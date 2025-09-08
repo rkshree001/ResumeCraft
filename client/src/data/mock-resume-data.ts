@@ -412,6 +412,48 @@ export const generateMockProfiles = () => {
   
   const profiles: any[] = [];
   
+  // Add complete profile data for each generated profile
+  const getCompleteProfileData = (personalInfo: any, experiences: any[], jobTitle: string, company: string, location: string) => ({
+    personalInfo,
+    experiences,
+    education: [{
+      degree: `Bachelor of Science in ${['Computer Science', 'Engineering', 'Business', 'Marketing', 'Design'][Math.floor(Math.random() * 5)]}`,
+      institution: ['Stanford University', 'MIT', 'UC Berkeley', 'Harvard University', 'Yale University'][Math.floor(Math.random() * 5)],
+      location: location,
+      graduationYear: String(2018 + Math.floor(Math.random() * 6)),
+      gpa: (3.0 + Math.random() * 1).toFixed(1),
+      relevantCoursework: 'Data Structures, Algorithms, Database Systems, Software Engineering'
+    }],
+    skills: [
+      { name: 'JavaScript', category: 'Programming Languages', level: 'Expert' },
+      { name: 'Python', category: 'Programming Languages', level: 'Advanced' },
+      { name: 'React', category: 'Frontend', level: 'Advanced' },
+      { name: 'Node.js', category: 'Backend', level: 'Intermediate' },
+      { name: 'SQL', category: 'Databases', level: 'Advanced' },
+      { name: 'AWS', category: 'Cloud', level: 'Intermediate' }
+    ],
+    projects: [{
+      name: 'Web Application Project',
+      technologies: 'React, Node.js, MongoDB',
+      description: 'Built a full-stack web application with modern technologies and best practices',
+      startDate: '2023',
+      endDate: '2024',
+      link: '',
+      github: ''
+    }],
+    certifications: [],
+    languages: [{ name: 'English', proficiency: 'Native' }],
+    awards: [],
+    volunteering: [],
+    interests: ['Technology', 'Reading', 'Travel'],
+    customSections: [],
+    settings: {
+      templateId: 'modern-1',
+      colorScheme: 'blue',
+      fontSize: 'medium'
+    }
+  });
+  
   for (let i = 0; i < 100; i++) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
@@ -421,26 +463,29 @@ export const generateMockProfiles = () => {
     const company = companies[Math.floor(Math.random() * companies.length)];
     const location = cities[Math.floor(Math.random() * cities.length)];
     
+    const personalInfo = {
+      name: fullName,
+      email: email,
+      phone: `(555) ${String(Math.floor(Math.random() * 900) + 100)}-${String(Math.floor(Math.random() * 9000) + 1000)}`,
+      location: location,
+      website: `${firstName.toLowerCase()}${lastName.toLowerCase()}.dev`,
+      linkedin: `linkedin.com/in/${firstName.toLowerCase()}${lastName.toLowerCase()}`,
+      github: Math.random() > 0.3 ? `github.com/${firstName.toLowerCase()}${lastName.toLowerCase()}` : ""
+    };
+    
+    const experiences = [{
+      jobTitle: jobTitle,
+      company: company,
+      location: location,
+      startDate: `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][Math.floor(Math.random() * 6)]} ${2020 + Math.floor(Math.random() * 4)}`,
+      endDate: "",
+      isCurrentJob: true,
+      description: `Delivered high-quality solutions and exceeded performance targets\nCollaborated with cross-functional teams to drive project success\nImplemented best practices and improved system efficiency by 25%`
+    }];
+    
     profiles.push({
-      personalInfo: {
-        name: fullName,
-        email: email,
-        phone: `(555) ${String(Math.floor(Math.random() * 900) + 100)}-${String(Math.floor(Math.random() * 9000) + 1000)}`,
-        location: location,
-        website: `${firstName.toLowerCase()}${lastName.toLowerCase()}.dev`,
-        linkedin: `linkedin.com/in/${firstName.toLowerCase()}${lastName.toLowerCase()}`,
-        github: Math.random() > 0.3 ? `github.com/${firstName.toLowerCase()}${lastName.toLowerCase()}` : ""
-      },
-      summary: `Experienced ${jobTitle.toLowerCase()} with ${Math.floor(Math.random() * 8) + 2}+ years of expertise in modern technologies and best practices.`,
-      experiences: [{
-        jobTitle: jobTitle,
-        company: company,
-        location: location,
-        startDate: `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][Math.floor(Math.random() * 6)]} ${2020 + Math.floor(Math.random() * 4)}`,
-        endDate: "",
-        isCurrentJob: true,
-        description: `Delivered high-quality solutions\nCollaborated with cross-functional teams\nImproved system performance and user experience`
-      }]
+      ...getCompleteProfileData(personalInfo, experiences, jobTitle, company, location),
+      summary: `Experienced ${jobTitle.toLowerCase()} with ${Math.floor(Math.random() * 8) + 2}+ years of expertise in modern technologies and industry best practices.`
     });
   }
   

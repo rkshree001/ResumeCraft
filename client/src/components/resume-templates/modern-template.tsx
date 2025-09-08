@@ -36,7 +36,7 @@ export function ModernTemplate({ data, colorScheme = 'blue' }: ModernTemplatePro
   };
 
   return (
-    <div className="max-w-full mx-auto bg-white text-black p-6">
+    <div className="max-w-full mx-auto bg-white text-black p-6 w-[210mm] min-h-[297mm] overflow-hidden break-words" style={{ fontSize: '12px', lineHeight: '1.4' }}>
       {/* Header Section */}
       <div className={`border-b-2 pb-4 mb-6 ${getColorClass('bg')}`}>
         <h1 className="text-3xl font-bold text-gray-900 mb-2" data-testid="preview-name">

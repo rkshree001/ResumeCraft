@@ -44,14 +44,30 @@ export default function LivePreview({ data }: LivePreviewProps) {
         </CardHeader>
         <CardContent className="p-2 sm:p-4">
           <div 
-            className="bg-white rounded-lg border shadow-sm mx-auto overflow-auto max-h-[70vh] sm:max-h-[80vh]"
+            className="bg-white rounded-lg border shadow-lg mx-auto overflow-auto"
             style={{ 
               transform: `scale(${previewScale})`, 
               transformOrigin: "top center",
-              width: `${100 / previewScale}%`
+              width: `${100 / previewScale}%`,
+              maxHeight: '80vh'
             }}
           >
-            <div className="p-6 sm:p-8 text-black text-xs sm:text-sm min-h-[600px] sm:min-h-[800px]" data-testid="resume-preview">
+            <div 
+              className="mx-auto bg-white shadow-lg"
+              style={{ 
+                width: '210mm', 
+                minHeight: '297mm', 
+                padding: '20mm',
+                fontSize: '11px',
+                lineHeight: '1.4',
+                fontFamily: 'system-ui, -apple-system, sans-serif',
+                color: '#000000',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
+                hyphens: 'auto'
+              }}
+              data-testid="resume-preview"
+            >
               {renderResumeTemplate(data)}
             </div>
           </div>
@@ -88,11 +104,26 @@ export default function LivePreview({ data }: LivePreviewProps) {
                 Close
               </Button>
             </div>
-            <div className="p-8">
-              <div className="bg-white border rounded" style={{ transform: "scale(0.9)", transformOrigin: "top" }}>
-                <div className="p-8 text-black text-sm" data-testid="resume-preview-fullscreen">
-                  {renderResumeTemplate(data)}
-                </div>
+            <div className="p-8 flex justify-center">
+              <div 
+                className="bg-white border shadow-lg"
+                style={{ 
+                  width: '210mm', 
+                  minHeight: '297mm', 
+                  padding: '20mm',
+                  fontSize: '12px',
+                  lineHeight: '1.4',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  color: '#000000',
+                  wordWrap: 'break-word',
+                  overflowWrap: 'break-word',
+                  hyphens: 'auto',
+                  transform: 'scale(0.8)',
+                  transformOrigin: 'top center'
+                }}
+                data-testid="resume-preview-fullscreen"
+              >
+                {renderResumeTemplate(data)}
               </div>
             </div>
           </div>

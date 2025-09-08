@@ -9,6 +9,9 @@ import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import ResumeBuilder from "@/pages/resume-builder";
 import Templates from "@/pages/templates";
+import EnhancedTemplates from "@/pages/enhanced-templates";
+import Settings from "@/pages/settings";
+import MyResumes from "@/pages/my-resumes";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +20,9 @@ function Router() {
       <Route path="/" component={Landing} />
       <Route path="/home" component={Home} />
       <Route path="/templates" component={Templates} />
+      <Route path="/enhanced-templates" component={EnhancedTemplates} />
+      <Route path="/my-resumes" component={MyResumes} />
+      <Route path="/settings" component={Settings} />
       <Route path="/builder/:resumeId?" component={ResumeBuilder} />
       <Route component={NotFound} />
     </Switch>

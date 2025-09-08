@@ -190,7 +190,7 @@ export default function ResumeBuilder() {
         return (
           <SkillsForm
             data={resumeData.skills}
-            onChange={(data) => updateResumeData("skills", data.map(skill => ({ ...skill, level: skill.level || 'Intermediate' })))}
+            onChange={(data) => updateResumeData("skills", data)}
             onNext={nextStep}
             onPrev={prevStep}
           />

@@ -110,6 +110,21 @@ export default function Home() {
               </CardContent>
             </Card>
 
+            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50 touch-manipulation" data-testid="card-upload-resume">
+              <CardContent className="p-6 text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M7 18a1 1 0 01-1-1V7a1 1 0 011-1h3V4a1 1 0 011-1h2a1 1 0 011 1v2h3a1 1 0 011 1v10a1 1 0 01-1 1H7zM9 8v2h6V8H9zm0 4v2h6v-2H9z"/>
+                  </svg>
+                </div>
+                <h3 className="font-bold text-lg mb-2 text-gray-900">Upload Resume</h3>
+                <p className="text-sm text-gray-600 mb-4 leading-relaxed">Upload your existing resume and let our AI extract and improve your content</p>
+                <Button asChild className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg min-h-[44px] touch-manipulation" data-testid="button-upload-resume">
+                  <Link href="/upload">Upload & Improve 📄</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
             <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-purple-300 bg-gradient-to-br from-white to-purple-50 touch-manipulation" data-testid="card-browse-templates">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -117,7 +132,7 @@ export default function Home() {
                     <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                   </svg>
                 </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900">120+ Templates</h3>
+                <h3 className="font-bold text-lg mb-2 text-gray-900">240+ Templates</h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">Choose from our extensive collection of professional templates with realistic data</p>
                 <Button variant="outline" asChild className="w-full border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50 min-h-[44px] touch-manipulation" data-testid="button-browse-templates">
                   <Link href="/enhanced-templates">Browse All 🎨</Link>

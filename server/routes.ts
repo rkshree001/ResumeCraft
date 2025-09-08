@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema, insertJobApplicationSchema } from "@shared/schema";
 import { randomBytes } from "crypto";
+import { registerAdvancedTemplateRoutes } from "./advanced-template-routes";
 
 export async function registerRoutes(app: Express): Promise<Server> {
 
@@ -347,6 +348,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(400).json({ message: "Failed to delete job application" });
     }
   });
+
+  // Register advanced template routes
+  registerAdvancedTemplateRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;

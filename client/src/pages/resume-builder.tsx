@@ -49,8 +49,13 @@ export default function ResumeBuilder() {
   const queryClient = useQueryClient();
 
   // Load existing resume if editing
-  const { data: existingResume, error } = useQuery<Resume>({
-    queryKey: ["/api/resumes", resumeId],
+  const { data: existingResume, error } = useQuery<Resume | null>({
+    queryKey: ["resumes", resumeId],
+    queryFn: async () => {
+      if (!resumeId) return null;
+      const { mockStorage } = await import("@/data/mock-storage");
+      return mockStorage.getResume(resumeId);
+    },
     enabled: !!resumeId,
     retry: false,
   });
@@ -92,21 +97,21 @@ export default function ResumeBuilder() {
   // Auto-save mutation
   const saveMutation = useMutation({
     mutationFn: async (data: ResumeData) => {
+      const { mockStorage } = await import("@/data/mock-storage");
       if (resumeId) {
-        return await apiRequest("PATCH", `/api/resumes/${resumeId}`, data);
+        return await mockStorage.updateResume(resumeId, data);
       } else {
-        const response = await apiRequest("POST", "/api/resumes", {
+        const newResume = await mockStorage.createResume({
           title: data.personalInfo.name || "Untitled Resume",
-          templateId: data.settings.templateId || "default",
+          templateId: data.settings.templateId || "modern-1",
           ...data,
         });
-        const newResume = await response.json();
         setLocation(`/builder/${newResume.id}`);
         return newResume;
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/resumes"] });
+      queryClient.invalidateQueries({ queryKey: ["resumes"] });
     },
     onError: (error) => {
       if (isUnauthorizedError(error as Error)) {
@@ -190,7 +195,7 @@ export default function ResumeBuilder() {
         return (
           <SkillsForm
             data={resumeData.skills}
-            onChange={(data) => updateResumeData("skills", data)}
+            onChange={(data) => updateResumeData("skills", data.map(skill => ({ ...skill, level: skill.level || 'Intermediate' })))}
             onNext={nextStep}
             onPrev={prevStep}
           />

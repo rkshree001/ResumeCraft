@@ -39,7 +39,12 @@ export default function MyResumes() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const { data: resumes = [], isLoading, error } = useQuery<Resume[]>({
-    queryKey: ["/api/resumes"],
+    queryKey: ["resumes"],
+    queryFn: async () => {
+      // Use mock data instead of API
+      const { mockStorage } = await import("@/data/mock-storage");
+      return mockStorage.getResumes();
+    },
     retry: false,
   });
 
@@ -64,10 +69,11 @@ export default function MyResumes() {
   // Delete resume mutation
   const deleteMutation = useMutation({
     mutationFn: async (resumeId: string) => {
-      await apiRequest("DELETE", `/api/resumes/${resumeId}`);
+      const { mockStorage } = await import("@/data/mock-storage");
+      await mockStorage.deleteResume(resumeId);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/resumes"] });
+      queryClient.invalidateQueries({ queryKey: ["resumes"] });
       toast({
         title: "Resume Deleted",
         description: "Your resume has been successfully deleted.",
@@ -102,10 +108,11 @@ export default function MyResumes() {
         customSections: resume.customSections,
         settings: resume.settings,
       };
-      return await apiRequest("POST", "/api/resumes", duplicateData);
+      const { mockStorage } = await import("@/data/mock-storage");
+      return await mockStorage.createResume(duplicateData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/resumes"] });
+      queryClient.invalidateQueries({ queryKey: ["resumes"] });
       toast({
         title: "Resume Duplicated",
         description: "Your resume copy has been created successfully.",

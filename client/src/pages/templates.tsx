@@ -19,7 +19,12 @@ export default function Templates() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const { data: templates = [], isLoading } = useQuery<Template[]>({
-    queryKey: ["/api/templates"],
+    queryKey: ["templates"],
+    queryFn: async () => {
+      // Use mock data instead of API
+      const { mockStorage } = await import("@/data/mock-storage");
+      return mockStorage.getTemplates();
+    },
     retry: false,
   });
 

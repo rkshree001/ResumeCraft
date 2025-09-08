@@ -26,12 +26,17 @@ export default function EnhancedTemplates() {
   const [previewTemplate, setPreviewTemplate] = useState<string | null>(null);
 
   const { data: serverTemplates = [], isLoading, error } = useQuery<Template[]>({
-    queryKey: ["/api/templates"],
+    queryKey: ["templates"],
+    queryFn: async () => {
+      // Use mock data instead of API
+      const { mockStorage } = await import("@/data/mock-storage");
+      return mockStorage.getTemplates();
+    },
     retry: false,
   });
 
-  // Combine server templates with mock templates
-  const allTemplates = [...serverTemplates, ...mockTemplates.map(t => ({ ...t, previewImage: '', createdAt: new Date().toISOString() }))];
+  // Use only the server templates (which are now mock templates from storage)
+  const allTemplates = serverTemplates;
 
   // Filter templates based on search and category
   const filteredTemplates = allTemplates.filter(template => {
@@ -104,7 +109,7 @@ export default function EnhancedTemplates() {
               <div className="mx-auto" style={{ width: '210mm', transform: 'scale(0.7)', transformOrigin: 'top center' }}>
                 <ModernTemplate 
                   data={getPreviewData(template)} 
-                  colorScheme={template.colorScheme || 'blue'} 
+                  colorScheme={(template as any).colorScheme || 'blue'} 
                 />
               </div>
             </div>

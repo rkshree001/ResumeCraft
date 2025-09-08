@@ -31,7 +31,7 @@ export interface Education {
 export interface Skill {
   name: string;
   category: string;
-  level?: string;
+  level: string;
 }
 
 export interface Certification {

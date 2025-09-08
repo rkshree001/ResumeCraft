@@ -16,7 +16,12 @@ export default function Home() {
   const { toast } = useToast();
 
   const { data: resumes = [], isLoading, error } = useQuery<Resume[]>({
-    queryKey: ["/api/resumes"],
+    queryKey: ["resumes"],
+    queryFn: async () => {
+      // Use mock data instead of API
+      const { mockStorage } = await import("@/data/mock-storage");
+      return mockStorage.getResumes();
+    },
     retry: false,
   });
 

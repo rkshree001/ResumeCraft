@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { renderResumeTemplate } from "@/lib/resume-templates";
+import { ModernTemplate } from "@/components/resume-templates/modern-template";
 import { Eye, Download, Maximize2 } from "lucide-react";
 import { useState } from "react";
 import type { ResumeData } from "@/types/resume";
@@ -68,7 +68,7 @@ export default function LivePreview({ data }: LivePreviewProps) {
               }}
               data-testid="resume-preview"
             >
-              {renderResumeTemplate(data)}
+              <ModernTemplate data={data} colorScheme={data.settings?.colorScheme || 'blue'} />
             </div>
           </div>
           
@@ -123,7 +123,7 @@ export default function LivePreview({ data }: LivePreviewProps) {
                 }}
                 data-testid="resume-preview-fullscreen"
               >
-                {renderResumeTemplate(data)}
+                <ModernTemplate data={data} colorScheme={data.settings?.colorScheme || 'blue'} />
               </div>
             </div>
           </div>

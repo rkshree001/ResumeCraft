@@ -1,0 +1,119 @@
+A. Professional / Corporate (Minimalist, ATS-Friendly)
+
+"Generate a clean, ATS-friendly resume for a Software Engineer with sections: Education, Experience, Skills, Projects. Include AI suggestions for impactful bullet points and technical keywords."
+
+"Create an ATS-optimized resume for a Business Analyst with quantified achievements and AI-suggested action verbs."
+
+"Design a professional resume template for an Accountant with AI-generated bullet points for certifications, skills, and experience."
+
+"Generate a one-page corporate resume for a Financial Analyst with AI suggestions for measurable achievements and KPIs."
+
+"Create a professional CV for a Project Manager, ATS-friendly, with AI-generated accomplishments and leadership highlights."
+
+"Generate a corporate resume for an HR Manager with AI suggestions for employee engagement metrics and talent acquisition achievements."
+
+"Design an ATS-optimized resume for a Marketing Manager with AI-generated campaign metrics and ROI-focused bullet points."
+
+"Create a professional CV for a Sales Executive, ATS-friendly, including AI suggestions for revenue growth and client acquisition metrics."
+
+"Generate a one-page resume for a Data Analyst with AI-generated insights, KPIs, and technical skill descriptions."
+
+"Design a clean resume for an Operations Manager, ATS-friendly, with AI suggestions for process improvements and cost-saving achievements."
+
+(…continue in the same style for all corporate roles: CEO, CFO, CTO, VP, Consultant, Engineer, Analyst, Admin, etc.)
+
+B. Creative / Modern Styles (Infographic, Portfolio-Friendly)
+
+"Generate a visually appealing resume for a Graphic Designer with bold colors, icons, and AI-suggested portfolio descriptions."
+
+"Design a creative, ATS-friendly CV for a UX Designer with AI suggestions for user research and project impact."
+
+"Create an infographic-style resume for a Content Writer, including AI-generated bullet points for published work and engagement metrics."
+
+"Generate a modern resume template for a Video Editor with AI suggestions for projects, software proficiency, and awards."
+
+"Design a creative CV for a Social Media Manager, ATS-friendly, with AI-generated KPIs for campaigns and follower growth."
+
+C. Technical / IT Roles
+
+"Generate a modern, ATS-optimized resume for a Full Stack Developer with AI suggestions for technologies, projects, and measurable achievements."
+
+"Create a futuristic resume template for an AI/ML Engineer, including AI-suggested project descriptions and keywords."
+
+"Design an ATS-friendly CV for a Cloud Engineer with AI-generated accomplishments and certifications."
+
+"Generate a one-page resume for a DevOps Engineer with AI-suggested technical metrics and workflow achievements."
+
+"Create a professional resume for a Cybersecurity Specialist with AI-generated security project bullet points and certifications."
+
+D. Functional / Skills-Based Templates
+
+"Build a functional resume for a Freelancer with ATS-friendly design, highlighting skills and AI-suggested freelance achievements."
+
+"Create a skills-focused CV for a Digital Marketer with AI-generated campaign KPIs and keyword-rich descriptions."
+
+"Design a functional resume for a Graphic Designer with AI-suggested portfolio projects and software skills."
+
+"Generate a skill-based resume for a QA Tester with AI suggestions for testing tools and bug metrics."
+
+"Create a skills-first CV for a Project Coordinator with AI-generated task completion metrics and software proficiency."
+
+E. Executive / Leadership Templates
+
+"Generate a professional executive CV for a CEO with ATS-friendly layout and AI suggestions for strategic accomplishments and leadership metrics."
+
+"Create a VP of Sales resume with AI-suggested revenue achievements, team management highlights, and KPI metrics."
+
+"Design an executive-level CV for a CTO with AI-generated project leadership bullet points and technical strategy achievements."
+
+"Generate an ATS-friendly CV for a CFO with AI suggestions for financial KPIs and strategic impact."
+
+"Create a professional resume for a COO with AI-generated operations improvement metrics and team leadership accomplishments."
+
+F. Academic / Research Templates
+
+"Build an academic CV for a PhD candidate with sections for publications, research, awards, and AI-generated descriptions."
+
+"Generate a research-focused resume for a Scientist with AI-suggested impact metrics, grants, and projects."
+
+"Design a professor CV template with AI-generated bullet points for courses taught, research, and publications."
+
+"Create an academic resume for a Research Assistant with AI-suggested project achievements and lab experience."
+
+"Generate a postdoctoral researcher CV with AI-generated grant and publication highlights."
+
+G. Industry-Specific Templates
+
+"Create a healthcare resume for a Nurse with ATS-friendly layout and AI-suggested patient care achievements."
+
+"Generate a mechanical engineer CV with AI-suggested project metrics and certifications."
+
+"Design a retail manager resume with AI-generated KPIs, sales growth, and team management metrics."
+
+"Create an ATS-friendly resume for a Teacher with AI-suggested lesson plans, student achievement metrics, and extracurricular highlights."
+
+"Generate a hospitality manager CV with AI-suggested guest satisfaction KPIs and team leadership accomplishments."
+
+H. Multi-Page / Portfolio Templates
+
+"Design a multi-page portfolio resume for a UX/UI Designer with AI-generated project descriptions, screenshots, and outcomes."
+
+"Generate a multi-section CV for a Software Architect with AI-suggested technical achievements and leadership metrics."
+
+"Create a two-page marketing strategist resume with AI-generated campaign metrics, ROI, and awards."
+
+"Design a portfolio-style CV for a Photographer with AI-generated image descriptions, exhibitions, and awards."
+
+"Generate a multi-page creative resume for a Fashion Designer with AI-suggested project details and achievements."
+
+I. Global / Multilingual Templates
+
+"Create a bilingual (English + Spanish) resume for an International Business Developer with AI-generated content for both languages."
+
+"Generate an ATS-friendly international CV for a Software Engineer with AI-suggested global keywords and achievements."
+
+"Design a multilingual resume for a Project Manager with AI-suggested cross-cultural leadership bullet points."
+
+"Create a global-ready resume for a Sales Manager with AI-generated international KPI metrics."
+
+"Generate an ATS-friendly international resume for a Marketing Director with AI-suggested campaign metrics and achievements."

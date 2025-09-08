@@ -174,52 +174,133 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Initialize default templates
+  // Initialize all 200+ templates with AI suggestions and ATS optimization
   app.post("/api/init-templates", async (req, res) => {
     try {
-      const defaultTemplates = [
-        {
-          name: "Modern Professional",
-          category: "modern",
-          description: "Clean and contemporary design",
-          isPremium: false,
-        },
-        {
-          name: "Classic Traditional",
-          category: "classic",
-          description: "Time-tested professional format",
-          isPremium: false,
-        },
-        {
-          name: "Creative Bold",
-          category: "creative",
-          description: "Stand out with unique design",
-          isPremium: true,
-        },
-        {
-          name: "Minimalist Clean",
-          category: "minimal",
-          description: "Simple and elegant layout",
-          isPremium: false,
-        },
-        {
-          name: "Executive",
-          category: "executive",
-          description: "Professional leadership template",
-          isPremium: true,
-        },
-      ];
-
-      const templates = [];
-      for (const template of defaultTemplates) {
-        const created = await storage.createTemplate(template);
-        templates.push(created);
+      // Import template generator (dynamic import to avoid build issues)
+      const { generateAllTemplates } = await import("../client/src/lib/template-generator.js");
+      const allTemplates = generateAllTemplates();
+      
+      const createdTemplates = [];
+      
+      // Clear existing templates if reinitializing
+      if (req.body.clearExisting) {
+        await storage.clearAllTemplates();
       }
       
-      res.json(templates);
+      // Create templates in batches to avoid overwhelming the database
+      const batchSize = 10;
+      for (let i = 0; i < allTemplates.length; i += batchSize) {
+        const batch = allTemplates.slice(i, i + batchSize);
+        
+        for (const templateData of batch) {
+          try {
+            const dbTemplate = {
+              name: templateData.name,
+              category: templateData.category,
+              description: templateData.description,
+              isPremium: templateData.isPremium,
+              previewImage: `/templates/${templateData.style}-${templateData.colorScheme}.jpg`
+            };
+            
+            const created = await storage.createTemplate(dbTemplate);
+            createdTemplates.push({
+              ...created,
+              metadata: templateData // Include full metadata
+            });
+          } catch (error) {
+            console.warn(`Failed to create template ${templateData.name}:`, error);
+          }
+        }
+        
+        // Small delay between batches
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+      
+      res.json({
+        message: `Successfully created ${createdTemplates.length} templates`,
+        templates: createdTemplates.slice(0, 20), // Return first 20 for preview
+        total: createdTemplates.length
+      });
     } catch (error) {
       console.error("Error initializing templates:", error);
       res.status(500).json({ message: "Failed to initialize templates" });
+    }
+  });
+  
+  // Get AI content suggestions for resume sections
+  app.post("/api/ai-suggestions", async (req, res) => {
+    try {
+      const { role, industry, sectionType, customization } = req.body;
+      
+      // Import AI suggestions (dynamic import)
+      const { generateContentSuggestions, generateResumeSection } = await import("../client/src/lib/ai-content-suggestions.js");
+      
+      if (sectionType && role) {
+        const section = generateResumeSection(sectionType, role, industry, customization);
+        res.json({ section, sectionType });
+      } else {
+        const suggestions = generateContentSuggestions(role, industry);
+        res.json(suggestions);
+      }
+    } catch (error) {
+      console.error("Error generating AI suggestions:", error);
+      res.status(500).json({ message: "Failed to generate suggestions" });
+    }
+  });
+  
+  // Get ATS optimization analysis
+  app.post("/api/ats-check", async (req, res) => {
+    try {
+      const { content, targetKeywords } = req.body;
+      
+      // Import ATS optimization (dynamic import)
+      const { atsOptimization } = await import("../client/src/lib/ai-content-suggestions.js");
+      
+      const compliance = atsOptimization.checkAtsCompliance(content);
+      const improvements = atsOptimization.suggestImprovements(content, targetKeywords || []);
+      
+      res.json({
+        compliance,
+        improvements,
+        recommendations: improvements.slice(0, 3)
+      });
+    } catch (error) {
+      console.error("Error checking ATS compliance:", error);
+      res.status(500).json({ message: "Failed to analyze ATS compliance" });
+    }
+  });
+  
+  // Get recommended templates based on user profile
+  app.post("/api/templates/recommendations", async (req, res) => {
+    try {
+      const { role, industry, experienceLevel } = req.body;
+      
+      // Import template generator
+      const { generateAllTemplates, getRecommendedTemplates } = await import("../client/src/lib/template-generator.js");
+      
+      const allTemplates = generateAllTemplates();
+      const recommended = getRecommendedTemplates(allTemplates, { role, industry, experienceLevel });
+      
+      // Get corresponding database templates
+      const dbTemplates = await storage.getAllTemplates();
+      const enrichedRecommendations = recommended.map(template => {
+        const dbTemplate = dbTemplates.find(db => db.category === template.category);
+        return {
+          ...template,
+          dbId: dbTemplate?.id,
+          dbData: dbTemplate
+        };
+      });
+      
+      res.json({
+        recommendations: enrichedRecommendations.slice(0, 12),
+        total: recommended.length,
+        userProfile: { role, industry, experienceLevel }
+      });
+    } catch (error) {
+      console.error("Error getting template recommendations:", error);
+      res.status(500).json({ message: "Failed to get recommendations" });
     }
   });
 

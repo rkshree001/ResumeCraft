@@ -28,6 +28,7 @@ export interface IStorage {
   getAllTemplates(): Promise<Template[]>;
   getTemplate(id: string): Promise<Template | undefined>;
   createTemplate(template: InsertTemplate): Promise<Template>;
+  clearAllTemplates(): Promise<void>;
   
   // Resume operations
   getUserResumes(userId: string): Promise<Resume[]>;
@@ -86,6 +87,10 @@ export class DatabaseStorage implements IStorage {
   async createTemplate(template: InsertTemplate): Promise<Template> {
     const [newTemplate] = await db.insert(templates).values(template).returning();
     return newTemplate;
+  }
+  
+  async clearAllTemplates(): Promise<void> {
+    await db.delete(templates);
   }
 
   // Resume operations

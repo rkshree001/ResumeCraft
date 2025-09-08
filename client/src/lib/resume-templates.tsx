@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ResumeData } from "../types/resume";
-import { ModernTemplate } from "@/components/resume-templates/modern-template";
+import { ModernTemplate } from "../components/resume-templates/modern-template";
 
 export function renderResumeTemplate(data: ResumeData, templateStyle: string = 'modern') {
   // Always use the modern template component - this returns a React component, not HTML

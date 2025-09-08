@@ -11,7 +11,7 @@ interface LivePreviewProps {
 
 export default function LivePreview({ data }: LivePreviewProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [previewScale, setPreviewScale] = useState(0.65);
+  const [previewScale, setPreviewScale] = useState(0.45);
 
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
@@ -42,29 +42,16 @@ export default function LivePreview({ data }: LivePreviewProps) {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="p-2 sm:p-4">
-          <div 
-            className="bg-white rounded-lg border shadow-lg mx-auto overflow-auto"
-            style={{ 
-              transform: `scale(${previewScale})`, 
-              transformOrigin: "top center",
-              width: `${100 / previewScale}%`,
-              maxHeight: '80vh'
-            }}
-          >
+        <CardContent className="p-2 sm:p-4 h-[calc(100vh-200px)] overflow-hidden">
+          <div className="h-full w-full bg-white rounded-lg border shadow-sm overflow-auto">
             <div 
-              className="mx-auto bg-white shadow-lg"
+              className="w-full h-fit bg-white"
               style={{ 
-                width: '210mm', 
-                minHeight: '297mm', 
-                padding: '20mm',
-                fontSize: '11px',
-                lineHeight: '1.4',
-                fontFamily: 'system-ui, -apple-system, sans-serif',
-                color: '#000000',
-                wordWrap: 'break-word',
-                overflowWrap: 'break-word',
-                hyphens: 'auto'
+                transform: `scale(${previewScale})`, 
+                transformOrigin: "top center",
+                fontSize: '10px',
+                lineHeight: '1.3',
+                fontFamily: 'system-ui, -apple-system, sans-serif'
               }}
               data-testid="resume-preview"
             >

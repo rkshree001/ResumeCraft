@@ -4,7 +4,8 @@ import { storage } from "./storage";
 import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema, insertJobApplicationSchema } from "@shared/schema";
 import { randomBytes } from "crypto";
 import { registerAdvancedTemplateRoutes } from "./advanced-template-routes";
-import { registerResumeUploadRoutes } from "./resume-upload.js";
+import { registerEnhancedTemplateRoutes } from "./enhanced-template-routes.js";
+// import { registerResumeUploadRoutes } from "./resume-upload.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
 
@@ -353,8 +354,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Register advanced template routes
   registerAdvancedTemplateRoutes(app);
   
+  // Register enhanced template routes
+  registerEnhancedTemplateRoutes(app);
+  
   // Register resume upload routes
-  registerResumeUploadRoutes(app);
+  // registerResumeUploadRoutes(app); // Temporarily disabled
 
   const httpServer = createServer(app);
   return httpServer;

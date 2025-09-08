@@ -153,7 +153,7 @@ export function registerResumeUploadRoutes(app: Express) {
 }
 
 function parseResumeText(text: string): ExtractedData {
-  const lines = text.split('\\n').map(line => line.trim()).filter(line => line.length > 0);
+  const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
   
   const result: ExtractedData = {
     personalInfo: {},
@@ -167,19 +167,19 @@ function parseResumeText(text: string): ExtractedData {
   };
 
   // Extract email
-  const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/);
+  const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
   if (emailMatch) {
     result.personalInfo.email = emailMatch[0];
   }
 
   // Extract phone number
-  const phoneMatch = text.match(/(?:\\+?1[-\\s]?)?\\(?([0-9]{3})\\)?[-\\s]?([0-9]{3})[-\\s]?([0-9]{4})/);
+  const phoneMatch = text.match(/(?:\+?1[-\s]?)?\(?([0-9]{3})\)?[-\s]?([0-9]{3})[-\s]?([0-9]{4})/);
   if (phoneMatch) {
     result.personalInfo.phone = phoneMatch[0];
   }
 
   // Extract LinkedIn
-  const linkedinMatch = text.match(/linkedin\\.com\\/in\\/[\\w-]+/i);
+  const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
   if (linkedinMatch) {
     result.personalInfo.linkedin = linkedinMatch[0];
   }

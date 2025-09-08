@@ -81,23 +81,24 @@ export default function EnhancedTemplates() {
         <div className="min-h-screen bg-background">
           <Navbar />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="mb-6 flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <Button
                   variant="outline"
                   onClick={() => setPreviewTemplate(null)}
+                  className="self-start min-h-[44px] touch-manipulation"
                   data-testid="button-back-to-templates"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Templates
                 </Button>
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">{template.name}</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground">{template.name}</h2>
                   <p className="text-muted-foreground capitalize">{template.category} template</p>
                 </div>
               </div>
               <div className="flex space-x-2">
-                <Button asChild data-testid="button-use-template">
+                <Button asChild className="min-h-[44px] touch-manipulation" data-testid="button-use-template">
                   <Link href={`/builder?template=${template.id}`}>
                     Use This Template
                   </Link>
@@ -105,8 +106,12 @@ export default function EnhancedTemplates() {
               </div>
             </div>
             
-            <div className="bg-gray-100 p-8 rounded-lg shadow-lg overflow-auto" style={{ maxHeight: '80vh' }}>
-              <div className="mx-auto" style={{ width: '210mm', transform: 'scale(0.7)', transformOrigin: 'top center' }}>
+            <div className="bg-gray-100 p-4 sm:p-8 rounded-lg shadow-lg overflow-auto" style={{ maxHeight: '80vh' }}>
+              <div className="mx-auto" style={{ 
+                width: '210mm', 
+                transform: window.innerWidth < 768 ? 'scale(0.4)' : 'scale(0.7)', 
+                transformOrigin: 'top center' 
+              }}>
                 <ModernTemplate 
                   data={getPreviewData(template)} 
                   colorScheme={(template as any).colorScheme || 'blue'} 
@@ -197,17 +202,37 @@ export default function EnhancedTemplates() {
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="mb-8">
-          <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10 mb-6">
-            <TabsTrigger value="all" className="text-xs">All</TabsTrigger>
-            {templateCategories.slice(0, 9).map(category => (
-              <TabsTrigger key={category.id} value={category.id} className="text-xs">
-                {category.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        {/* Mobile-Friendly Category Filter */}
+        <div className="mb-8">
+          <div className="block sm:hidden mb-4">
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full" data-testid="mobile-select-category">
+                <SelectValue placeholder="Filter by Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Templates</SelectItem>
+                {templateCategories.map(category => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="hidden sm:block">
+            <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+              <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 lg:grid-cols-10 mb-6">
+                <TabsTrigger value="all" className="text-xs px-2">All</TabsTrigger>
+                {templateCategories.slice(0, 9).map(category => (
+                  <TabsTrigger key={category.id} value={category.id} className="text-xs px-2">
+                    {category.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
+        </div>
 
         {/* Results Summary */}
         <div className="mb-4 flex justify-between items-center">
@@ -225,8 +250,8 @@ export default function EnhancedTemplates() {
           </div>
         </div>
 
-        {/* Templates Grid/List */}
-        <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" : "space-y-4"}>
+        {/* Templates Grid/List - Improved Mobile Layout */}
+        <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6" : "space-y-4"}>
           {filteredTemplates.length === 0 ? (
             <div className="col-span-full text-center py-12">
               <svg className="w-16 h-16 text-muted-foreground mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
@@ -262,20 +287,20 @@ export default function EnhancedTemplates() {
                       </p>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="space-y-3">
-                        <div className="w-full h-24 bg-gradient-to-br from-gray-50 to-gray-100 rounded border flex items-center justify-center">
+                      <div className="space-y-4">
+                        <div className="w-full h-32 sm:h-24 bg-gradient-to-br from-gray-50 to-gray-100 rounded border flex items-center justify-center touch-manipulation">
                           <div className="text-center">
-                            <div className="w-8 h-8 bg-primary/10 rounded mx-auto mb-1 flex items-center justify-center">
-                              <span className="text-xs font-bold text-primary">{template.name.charAt(0)}</span>
+                            <div className="w-10 h-10 sm:w-8 sm:h-8 bg-primary/10 rounded mx-auto mb-2 flex items-center justify-center">
+                              <span className="text-sm sm:text-xs font-bold text-primary">{template.name.charAt(0)}</span>
                             </div>
-                            <span className="text-xs text-muted-foreground">Preview</span>
+                            <span className="text-sm sm:text-xs text-muted-foreground">Preview</span>
                           </div>
                         </div>
                         
-                        <div className="flex space-x-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                           <Button 
                             size="sm" 
-                            className="flex-1 text-xs"
+                            className="flex-1 text-sm sm:text-xs py-2 sm:py-1 min-h-[44px] sm:min-h-auto touch-manipulation"
                             asChild
                             data-testid={`button-use-template-${template.id}`}
                           >
@@ -286,7 +311,7 @@ export default function EnhancedTemplates() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            className="text-xs"
+                            className="text-sm sm:text-xs py-2 sm:py-1 min-h-[44px] sm:min-h-auto touch-manipulation"
                             onClick={() => setPreviewTemplate(template.id)}
                             data-testid={`button-preview-template-${template.id}`}
                           >

@@ -95,7 +95,7 @@ export default function Home() {
             Quick Actions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-blue-300 bg-gradient-to-br from-white to-blue-50" data-testid="card-create-resume">
+            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-blue-300 bg-gradient-to-br from-white to-blue-50 touch-manipulation" data-testid="card-create-resume">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -104,13 +104,13 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 text-gray-900">Create Resume</h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">Start building your professional resume from scratch with our intuitive builder</p>
-                <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg" data-testid="button-create-resume">
+                <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg min-h-[44px] touch-manipulation" data-testid="button-create-resume">
                   <Link href="/builder">Create New ✨</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-purple-300 bg-gradient-to-br from-white to-purple-50" data-testid="card-browse-templates">
+            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-purple-300 bg-gradient-to-br from-white to-purple-50 touch-manipulation" data-testid="card-browse-templates">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -119,13 +119,13 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 text-gray-900">120+ Templates</h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">Choose from our extensive collection of professional templates with realistic data</p>
-                <Button variant="outline" asChild className="w-full border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50" data-testid="button-browse-templates">
+                <Button variant="outline" asChild className="w-full border-2 border-purple-200 hover:border-purple-400 hover:bg-purple-50 min-h-[44px] touch-manipulation" data-testid="button-browse-templates">
                   <Link href="/enhanced-templates">Browse All 🎨</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50" data-testid="card-my-resumes">
+            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50 touch-manipulation" data-testid="card-my-resumes">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -134,13 +134,13 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 text-gray-900">My Resumes</h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">Manage and organize all your created resumes in one place</p>
-                <Button variant="outline" asChild className="w-full border-2 border-green-200 hover:border-green-400 hover:bg-green-50" data-testid="button-my-resumes">
+                <Button variant="outline" asChild className="w-full border-2 border-green-200 hover:border-green-400 hover:bg-green-50 min-h-[44px] touch-manipulation" data-testid="button-my-resumes">
                   <Link href="/my-resumes">View All ({resumes.length}) 📋</Link>
                 </Button>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-orange-300 bg-gradient-to-br from-white to-orange-50" data-testid="card-settings">
+            <Card className="hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer border-2 hover:border-orange-300 bg-gradient-to-br from-white to-orange-50 touch-manipulation" data-testid="card-settings">
               <CardContent className="p-6 text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -150,7 +150,7 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 text-gray-900">Settings</h3>
                 <p className="text-sm text-gray-600 mb-4 leading-relaxed">Customize your preferences and account settings</p>
-                <Button variant="outline" asChild className="w-full border-2 border-orange-200 hover:border-orange-400 hover:bg-orange-50" data-testid="button-settings">
+                <Button variant="outline" asChild className="w-full border-2 border-orange-200 hover:border-orange-400 hover:bg-orange-50 min-h-[44px] touch-manipulation" data-testid="button-settings">
                   <Link href="/settings">Manage ⚙️</Link>
                 </Button>
               </CardContent>
@@ -187,7 +187,7 @@ export default function Home() {
                 <p className="text-gray-600 mb-6 text-lg leading-relaxed">
                   Start building your professional resume today with our easy-to-use builder and stunning templates.
                 </p>
-                <Button asChild className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-lg px-8 py-3 shadow-lg" data-testid="button-create-first-resume">
+                <Button asChild className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white text-lg px-8 py-3 shadow-lg min-h-[44px] touch-manipulation" data-testid="button-create-first-resume">
                   <Link href="/builder">Create Your First Resume ✨</Link>
                 </Button>
               </div>

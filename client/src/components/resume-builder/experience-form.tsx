@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar, CalendarDays } from "lucide-react";
+import { generateResumeSection } from "@/lib/ai-content-suggestions";
 
 const experienceSchema = z.object({
   jobTitle: z.string().min(1, "Job title is required"),
@@ -261,6 +262,14 @@ export default function ExperienceForm({ data, onChange, onNext, onPrev }: Exper
                           variant="ghost"
                           size="sm"
                           className="text-primary hover:text-primary/80"
+                          onClick={() => {
+                            const jobTitle = form.getValues("jobTitle") || "software-engineer";
+                            const suggestion = generateResumeSection("experience", jobTitle, "technology");
+                            if (suggestion.suggestions && suggestion.suggestions.length > 0) {
+                              const randomSuggestion = suggestion.suggestions[Math.floor(Math.random() * suggestion.suggestions.length)];
+                              form.setValue("description", randomSuggestion);
+                            }
+                          }}
                           data-testid="button-ai-suggest-experience"
                         >
                           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">

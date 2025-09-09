@@ -95,6 +95,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // PUT endpoint for updating resumes
+  app.put("/api/resumes/:id", async (req: any, res) => {
+    try {
+      const resumeId = req.params.id;
+      
+      const resumeData = insertResumeSchema.partial().parse(req.body);
+      const updatedResume = await storage.updateResume(resumeId, resumeData);
+      res.json(updatedResume);
+    } catch (error) {
+      console.error("Error updating resume:", error);
+      res.status(400).json({ message: "Failed to update resume" });
+    }
+  });
+
   app.patch("/api/resumes/:id", async (req: any, res) => {
     try {
       const resumeId = req.params.id;

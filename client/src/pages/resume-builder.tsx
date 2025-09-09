@@ -67,8 +67,17 @@ export default function ResumeBuilder() {
     queryKey: ["resumes", resumeId],
     queryFn: async () => {
       if (!resumeId) return null;
-      const { mockStorage } = await import("@/data/mock-storage");
-      return mockStorage.getResume(resumeId);
+      try {
+        const response = await fetch(`/api/resumes/${resumeId}`);
+        if (!response.ok) {
+          if (response.status === 404) return null;
+          throw new Error('Failed to fetch resume');
+        }
+        return response.json();
+      } catch (error) {
+        console.error('Error fetching resume:', error);
+        throw error;
+      }
     },
     enabled: !!resumeId,
     retry: false,

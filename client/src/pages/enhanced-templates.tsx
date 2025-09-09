@@ -28,9 +28,18 @@ export default function EnhancedTemplates() {
   const { data: serverTemplates = [], isLoading, error } = useQuery<Template[]>({
     queryKey: ["templates"],
     queryFn: async () => {
-      // Use mock data instead of API
-      const { mockStorage } = await import("@/data/mock-storage");
-      return mockStorage.getTemplates();
+      try {
+        const response = await fetch('/api/templates');
+        if (!response.ok) {
+          throw new Error('Failed to fetch templates');
+        }
+        return response.json();
+      } catch (error) {
+        console.error('Error fetching templates:', error);
+        // Fall back to mock data if API fails
+        const { mockStorage } = await import("@/data/mock-storage");
+        return mockStorage.getTemplates();
+      }
     },
     retry: false,
   });

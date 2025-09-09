@@ -85,17 +85,34 @@ export function registerResumeUploadRoutes(app: Express) {
       // Extract text from uploaded file
       let extractedText = '';
       
-      if (req.file.mimetype === 'application/pdf') {
-        const fileBuffer = await fs.readFile(req.file.path);
-        const pdfData = await pdfParse(fileBuffer);
-        extractedText = pdfData.text;
-      } else if (req.file.mimetype.includes('word')) {
-        const fileBuffer = await fs.readFile(req.file.path);
-        const result = await mammoth.extractRawText({ buffer: fileBuffer });
-        extractedText = result.value;
+      try {
+        if (req.file.mimetype === 'application/pdf') {
+          console.log('Processing PDF file...');
+          const fileBuffer = await fs.readFile(req.file.path);
+          console.log('File buffer size:', fileBuffer.length);
+          
+          const pdfData = await pdfParse(fileBuffer);
+          
+          extractedText = pdfData.text || '';
+          console.log('PDF text extracted successfully');
+        } else if (req.file.mimetype.includes('word')) {
+          console.log('Processing Word document...');
+          const fileBuffer = await fs.readFile(req.file.path);
+          const result = await mammoth.extractRawText({ buffer: fileBuffer });
+          extractedText = result.value || '';
+          console.log('Word text extracted successfully');
+        }
+      } catch (parseError) {
+        console.error('Error extracting text from file:', parseError);
+        extractedText = `Failed to extract text from ${req.file.originalname}. Please ensure the file is not corrupted and try again.`;
       }
 
       console.log('Extracted text length:', extractedText.length);
+
+      // Only proceed if we have meaningful text
+      if (extractedText.length < 50) {
+        throw new Error(`Insufficient text extracted from file. Only ${extractedText.length} characters found. The file may be corrupted or contain only images.`);
+      }
 
       // Parse the extracted text to extract structured data
       const extractedData = parseResumeText(extractedText);

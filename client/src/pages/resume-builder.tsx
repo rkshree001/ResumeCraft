@@ -33,6 +33,10 @@ export default function ResumeBuilder() {
   const { resumeId } = useParams<{ resumeId?: string }>();
   const [, setLocation] = useLocation();
   const [currentStep, setCurrentStep] = useState(1);
+  
+  // Get template parameter from URL query string
+  const urlParams = new URLSearchParams(window.location.search);
+  const templateIdFromUrl = urlParams.get('template');
   const [resumeData, setResumeData] = useState<ResumeData>({
     personalInfo: {},
     summary: "",
@@ -42,7 +46,7 @@ export default function ResumeBuilder() {
     projects: [],
     customSections: [],
     settings: {
-      templateId: "",
+      templateId: templateIdFromUrl || "",
       colorScheme: "blue",
       fontSize: "medium",
       fontFamily: "system",
@@ -84,6 +88,25 @@ export default function ResumeBuilder() {
     }
   }, [error, toast]);
 
+  // Handle template selection from URL
+  useEffect(() => {
+    if (templateIdFromUrl && !resumeId) {
+      toast({
+        title: "Template Selected!",
+        description: "You've selected a template. Start building your resume below.",
+      });
+      
+      // Update the settings with the selected template
+      setResumeData(prev => ({
+        ...prev,
+        settings: {
+          ...prev.settings,
+          templateId: templateIdFromUrl
+        }
+      }));
+    }
+  }, [templateIdFromUrl, resumeId, toast]);
+
   // Load existing resume data
   useEffect(() => {
     if (existingResume) {
@@ -96,7 +119,7 @@ export default function ResumeBuilder() {
         projects: existingResume.projects || [],
         customSections: existingResume.customSections || [],
         settings: existingResume.settings || {
-          templateId: existingResume.templateId,
+          templateId: existingResume.templateId || templateIdFromUrl || "",
           colorScheme: "blue",
           fontSize: "medium",
           fontFamily: "system",
@@ -110,7 +133,7 @@ export default function ResumeBuilder() {
         },
       });
     }
-  }, [existingResume]);
+  }, [existingResume, templateIdFromUrl]);
 
   // Auto-save mutation
   const saveMutation = useMutation({

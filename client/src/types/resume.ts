@@ -163,3 +163,52 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+// Cover Letter Types
+export interface CoverLetterData {
+  personalInfo: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    location?: string;
+    date?: string;
+  };
+  recipientInfo: {
+    hiringManagerName?: string;
+    companyName?: string;
+    companyAddress?: string;
+  };
+  jobDetails: {
+    jobTitle?: string;
+    jobReference?: string;
+    howYouFound?: string;
+  };
+  content: {
+    opening?: string;
+    body?: string;
+    closing?: string;
+  };
+  settings: {
+    templateId: string;
+    colorScheme: string;
+    fontSize: string;
+    fontFamily: string;
+    signature?: string;
+  };
+}
+
+export interface CoverLetter {
+  id: string;
+  userId: string;
+  templateId: string;
+  title: string;
+  personalInfo: CoverLetterData['personalInfo'];
+  recipientInfo: CoverLetterData['recipientInfo'];
+  jobDetails: CoverLetterData['jobDetails'];
+  content: CoverLetterData['content'];
+  settings: CoverLetterData['settings'];
+  resumeId?: string;
+  isPublic: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -100,12 +100,30 @@ export const jobApplications = pgTable("job_applications", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Cover Letters table
+export const coverLetters = pgTable("cover_letters", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  templateId: varchar("template_id").notNull().references(() => templates.id),
+  title: varchar("title").notNull(),
+  personalInfo: jsonb("personal_info"), // name, email, phone, location, date
+  recipientInfo: jsonb("recipient_info"), // hiring manager, company name, address
+  jobDetails: jsonb("job_details"), // job title, reference, how you found
+  content: jsonb("content"), // opening, body, closing paragraphs
+  settings: jsonb("settings"), // template, colors, fonts, signature
+  resumeId: varchar("resume_id").references(() => resumes.id, { onDelete: "set null" }),
+  isPublic: boolean("is_public").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Export schemas and types
 export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertTemplateSchema = createInsertSchema(templates).omit({ id: true, createdAt: true });
 export const insertResumeSchema = createInsertSchema(resumes).omit({ id: true, createdAt: true, updatedAt: true, viewCount: true, downloadCount: true });
 export const insertResumeShareSchema = createInsertSchema(resumeShares).omit({ id: true, createdAt: true });
 export const insertJobApplicationSchema = createInsertSchema(jobApplications).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertCoverLetterSchema = createInsertSchema(coverLetters).omit({ id: true, createdAt: true, updatedAt: true });
 
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
@@ -117,3 +135,5 @@ export type ResumeShare = typeof resumeShares.$inferSelect;
 export type InsertResumeShare = z.infer<typeof insertResumeShareSchema>;
 export type JobApplication = typeof jobApplications.$inferSelect;
 export type InsertJobApplication = z.infer<typeof insertJobApplicationSchema>;
+export type CoverLetter = typeof coverLetters.$inferSelect;
+export type InsertCoverLetter = z.infer<typeof insertCoverLetterSchema>;

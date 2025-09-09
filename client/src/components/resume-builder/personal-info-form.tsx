@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Sparkles } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Sparkles, Upload, FileText, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 import { mockResumeData } from "@/data/mock-resume-data";
 
 const personalInfoSchema = z.object({
@@ -28,6 +33,11 @@ interface PersonalInfoFormProps {
 }
 
 export default function PersonalInfoForm({ data, onChange, onNext }: PersonalInfoFormProps) {
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+  
   const form = useForm<PersonalInfoData>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
@@ -41,6 +51,94 @@ export default function PersonalInfoForm({ data, onChange, onNext }: PersonalInf
       summary: data.summary || "",
     },
   });
+
+  const uploadMutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const response = await fetch('/api/resumes/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      
+      return response.json();
+    },
+    onSuccess: (response) => {
+      const extractedData = response.extractedData;
+      
+      // Pre-fill the form with extracted data
+      if (extractedData.personalInfo) {
+        const personalInfo = extractedData.personalInfo;
+        form.setValue('name', personalInfo.name || '');
+        form.setValue('email', personalInfo.email || '');
+        form.setValue('phone', personalInfo.phone || '');
+        form.setValue('location', personalInfo.address || '');
+        form.setValue('linkedin', personalInfo.linkedin || '');
+        form.setValue('website', personalInfo.website || '');
+      }
+      
+      if (extractedData.summary) {
+        form.setValue('summary', extractedData.summary);
+      }
+      
+      // Update parent component with the extracted data
+      const formValues = form.getValues();
+      onChange(formValues);
+      
+      setSelectedFile(null);
+      setIsUploadOpen(false);
+      
+      toast({
+        title: "Resume uploaded successfully!",
+        description: "Your information has been extracted and pre-filled in the form.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Upload failed",
+        description: error.message || "Failed to process your resume. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowedTypes.includes(file.type)) {
+        toast({
+          title: "Invalid file type",
+          description: "Please upload a PDF or Word document.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please upload a file smaller than 10MB.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      setSelectedFile(file);
+    }
+  };
+
+  const handleUpload = () => {
+    if (!selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('resume', selectedFile);
+    uploadMutation.mutate(formData);
+  };
 
   const onSubmit = (formData: PersonalInfoData) => {
     onChange(formData);
@@ -64,6 +162,97 @@ export default function PersonalInfoForm({ data, onChange, onNext }: PersonalInf
           Start with your basic contact information and professional summary.
         </p>
       </div>
+
+      {/* Resume Upload Section */}
+      <Collapsible open={isUploadOpen} onOpenChange={setIsUploadOpen}>
+        <CollapsibleTrigger asChild>
+          <Card className="cursor-pointer hover:bg-accent/50 transition-colors">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Upload className="w-5 h-5 text-primary" />
+                  <div>
+                    <CardTitle className="text-lg">Import Existing Resume</CardTitle>
+                    <CardDescription>
+                      Upload your current resume to auto-fill this form
+                    </CardDescription>
+                  </div>
+                </div>
+                {isUploadOpen ? 
+                  <ChevronUp className="w-5 h-5 text-muted-foreground" /> : 
+                  <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                }
+              </div>
+            </CardHeader>
+          </Card>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent>
+          <Card className="border-t-0 rounded-t-none">
+            <CardContent className="pt-4 space-y-4">
+              <div className="space-y-3">
+                <div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-full"
+                    disabled={uploadMutation.isPending}
+                  >
+                    <FileText className="w-4 h-4 mr-2" />
+                    Choose Resume File
+                  </Button>
+                </div>
+                
+                {selectedFile && (
+                  <div className="p-4 bg-muted rounded-lg space-y-3">
+                    <div className="flex items-center gap-3">
+                      <FileText className="w-6 h-6 text-primary" />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium truncate">{selectedFile.name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <Button
+                      onClick={handleUpload}
+                      disabled={!selectedFile || uploadMutation.isPending}
+                      className="w-full"
+                    >
+                      {uploadMutation.isPending ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Processing Resume...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Extract Information
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+                
+                <div className="text-xs text-muted-foreground">
+                  <p>• Supported formats: PDF, DOC, DOCX (max 10MB)</p>
+                  <p>• We'll automatically extract your information to pre-fill the form</p>
+                  <p>• You can edit the extracted information before proceeding</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </CollapsibleContent>
+      </Collapsible>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

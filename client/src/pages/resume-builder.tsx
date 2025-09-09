@@ -9,6 +9,7 @@ import ExperienceForm from "@/components/resume-builder/experience-form";
 import EducationForm from "@/components/resume-builder/education-form";
 import SkillsForm from "@/components/resume-builder/skills-form";
 import ProjectsForm from "@/components/resume-builder/projects-form";
+import StylingForm from "@/components/resume-builder/styling-form";
 import ReviewForm from "@/components/resume-builder/review-form";
 import LivePreview from "@/components/resume-builder/live-preview";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +25,8 @@ const STEPS = [
   { id: 3, name: "Education", label: "Education" },
   { id: 4, name: "Skills", label: "Skills" },
   { id: 5, name: "Projects", label: "Projects" },
-  { id: 6, name: "Review", label: "Review & Export" },
+  { id: 6, name: "Styling", label: "Styling & Design" },
+  { id: 7, name: "Review", label: "Review & Export" },
 ];
 
 export default function ResumeBuilder() {
@@ -43,6 +45,14 @@ export default function ResumeBuilder() {
       templateId: "",
       colorScheme: "blue",
       fontSize: "medium",
+      fontFamily: "system",
+      lineSpacing: "normal",
+      margins: "normal",
+      bulletStyle: "circle",
+      headerStyle: "modern",
+      sectionSpacing: "normal",
+      textColor: "#000000",
+      backgroundColor: "#ffffff",
     },
   });
   const { toast } = useToast();
@@ -89,6 +99,14 @@ export default function ResumeBuilder() {
           templateId: existingResume.templateId,
           colorScheme: "blue",
           fontSize: "medium",
+          fontFamily: "system",
+          lineSpacing: "normal",
+          margins: "normal",
+          bulletStyle: "circle",
+          headerStyle: "modern",
+          sectionSpacing: "normal",
+          textColor: "#000000",
+          backgroundColor: "#ffffff",
         },
       });
     }
@@ -211,6 +229,15 @@ export default function ResumeBuilder() {
         );
       case 6:
         return (
+          <StylingForm
+            data={resumeData.settings}
+            onChange={(settings) => updateResumeData("settings", settings)}
+            onNext={nextStep}
+            onPrev={prevStep}
+          />
+        );
+      case 7:
+        return (
           <ReviewForm
             data={resumeData}
             onChange={setResumeData}
@@ -230,6 +257,7 @@ export default function ResumeBuilder() {
       "Education",
       "Skills",
       "Projects",
+      "Styling & Design",
       "Review & Export"
     ];
     return titles[step - 1] || "Resume Builder";
@@ -242,6 +270,7 @@ export default function ResumeBuilder() {
       "Include your educational background and qualifications.",
       "Highlight your technical and professional skills.",
       "Showcase your projects and accomplishments.",
+      "Customize colors, fonts, layout, and add images to make your resume unique.",
       "Review your resume and export when ready."
     ];
     return descriptions[step - 1] || "";

@@ -80,6 +80,17 @@ export interface ResumeSettings {
   templateId: string;
   colorScheme: string;
   fontSize: string;
+  fontFamily: string;
+  lineSpacing: string;
+  margins: string;
+  bulletStyle: string;
+  headerStyle: string;
+  sectionSpacing: string;
+  accentColor?: string;
+  textColor: string;
+  backgroundColor: string;
+  signature?: string;
+  profileImage?: string;
 }
 
 export interface ResumeData {

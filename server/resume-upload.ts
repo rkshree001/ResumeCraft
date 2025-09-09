@@ -91,10 +91,30 @@ export function registerResumeUploadRoutes(app: Express) {
           const fileBuffer = await fs.readFile(req.file.path);
           console.log('File buffer size:', fileBuffer.length);
           
-          const pdfData = await pdfParse(fileBuffer);
+          // Try multiple PDF parsing approaches
+          let pdfData;
+          try {
+            // First try with default options
+            pdfData = await pdfParse(fileBuffer);
+            extractedText = pdfData.text || '';
+            
+            // If text is too short, try with different options
+            if (extractedText.length < 50) {
+              console.log('Trying alternative PDF parsing...');
+              pdfData = await pdfParse(fileBuffer, {
+                max: 0, // Extract all pages
+                version: 'v1.10.100', // Specify version for better compatibility
+              });
+              extractedText = pdfData.text || '';
+            }
+          } catch (pdfError) {
+            console.error('PDF parsing failed:', pdfError);
+            extractedText = '';
+          }
           
-          extractedText = pdfData.text || '';
-          console.log('PDF text extracted successfully');
+          console.log('PDF text extracted, length:', extractedText.length);
+          console.log('Sample text:', extractedText.substring(0, 200));
+          
         } else if (req.file.mimetype.includes('word')) {
           console.log('Processing Word document...');
           const fileBuffer = await fs.readFile(req.file.path);
@@ -104,14 +124,57 @@ export function registerResumeUploadRoutes(app: Express) {
         }
       } catch (parseError) {
         console.error('Error extracting text from file:', parseError);
-        extractedText = `Failed to extract text from ${req.file.originalname}. Please ensure the file is not corrupted and try again.`;
+        // Provide a more helpful error message
+        extractedText = '';
       }
 
       console.log('Extracted text length:', extractedText.length);
 
-      // Only proceed if we have meaningful text
-      if (extractedText.length < 50) {
-        throw new Error(`Insufficient text extracted from file. Only ${extractedText.length} characters found. The file may be corrupted or contain only images.`);
+      // Handle case where no text was extracted
+      if (extractedText.length < 10) {
+        console.log('Minimal text extracted, creating resume with basic template');
+        // For PDFs with minimal text, create a basic resume structure
+        const basicResumeData = {
+          id: nanoid(),
+          userId: (req.session as any)?.user?.id || 'demo-user',
+          title: `Uploaded Resume - ${req.file.originalname}`,
+          templateId: 'template-1',
+          data: {
+            personalInfo: {
+              name: 'Please update your name',
+              email: '',
+              phone: '',
+              address: '',
+              linkedin: '',
+              website: ''
+            },
+            summary: 'Please update with your professional summary',
+            experience: [],
+            education: [],
+            skills: [],
+            projects: [],
+            certifications: [],
+            achievements: [],
+            languages: [],
+            references: [],
+            customSections: []
+          },
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+
+        const validatedData = insertResumeSchema.parse(basicResumeData);
+        await storage.createResume(validatedData);
+
+        // Clean up uploaded file
+        await fs.unlink(req.file.path).catch(console.error);
+
+        return res.json({
+          resumeId: basicResumeData.id,
+          extractedData: basicResumeData.data,
+          message: 'Resume uploaded successfully. Please fill in your information manually as text extraction was limited.',
+          warning: 'Limited text was extracted from your file. You may need to manually enter your information.'
+        });
       }
 
       // Parse the extracted text to extract structured data

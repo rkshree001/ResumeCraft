@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2, Upload, FileText, CheckCircle } from 'lucide-react';
+import { Loader2, Upload, FileText, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import Navbar from '@/components/common/navbar';
 
 interface UploadedResumeData {
   personalInfo: {
@@ -73,11 +74,19 @@ export function ResumeUpload() {
       
       return response.json();
     },
-    onSuccess: (data: { resumeId: string; extractedData: UploadedResumeData }) => {
-      toast({
-        title: "Resume uploaded successfully!",
-        description: "Your resume data has been extracted and saved.",
-      });
+    onSuccess: (data: { resumeId: string; extractedData: UploadedResumeData; warning?: string }) => {
+      if (data.warning) {
+        toast({
+          title: "Resume uploaded with warnings",
+          description: data.warning,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Resume uploaded successfully!",
+          description: "Your resume data has been extracted and saved.",
+        });
+      }
       
       // Navigate to resume builder with uploaded data
       setLocation(`/builder/${data.resumeId}`);
@@ -134,8 +143,24 @@ export function ResumeUpload() {
   const isUploading = uploadMutation.isPending;
 
   return (
-    <div className="container mx-auto py-8 max-w-2xl">
-      <Card>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <div className="container mx-auto py-8 max-w-2xl">
+        {/* Back Navigation */}
+        <div className="mb-6">
+          <Button 
+            variant="ghost" 
+            onClick={() => setLocation('/builder')}
+            className="mb-4"
+            data-testid="button-back-to-builder"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Resume Builder
+          </Button>
+        </div>
+
+        <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5" />
@@ -220,6 +245,7 @@ export function ResumeUpload() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

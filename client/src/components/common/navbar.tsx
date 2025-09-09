@@ -84,6 +84,14 @@ export default function Navbar() {
                       <span className="text-base font-medium">Resume Builder</span>
                     </Link>
                     
+                    <Link href="/home" 
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" 
+                          data-testid="mobile-link-dashboard">
+                      <Home className="w-5 h-5 text-gray-600" />
+                      <span className="text-base font-medium">Dashboard</span>
+                    </Link>
+
                     <Link href="/my-resumes" 
                           onClick={() => setIsOpen(false)}
                           className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" 

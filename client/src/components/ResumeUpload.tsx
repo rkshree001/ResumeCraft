@@ -79,8 +79,8 @@ export function ResumeUpload() {
         description: "Your resume data has been extracted and saved.",
       });
       
-      // Navigate to edit the uploaded resume
-      setLocation(`/resumes/${data.resumeId}/edit`);
+      // Navigate to resume builder with uploaded data
+      setLocation(`/builder/${data.resumeId}`);
       
       // Invalidate resumes cache
       queryClient.invalidateQueries({ queryKey: ['/api/resumes'] });

@@ -5,7 +5,7 @@ import { insertResumeSchema, insertTemplateSchema, insertResumeShareSchema, inse
 import { randomBytes } from "crypto";
 import { registerAdvancedTemplateRoutes } from "./advanced-template-routes";
 import { registerEnhancedTemplateRoutes } from "./enhanced-template-routes.js";
-// import { registerResumeUploadRoutes } from "./resume-upload.js";
+import { registerResumeUploadRoutes } from "./resume-upload.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
 
@@ -358,7 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   registerEnhancedTemplateRoutes(app);
   
   // Register resume upload routes
-  // registerResumeUploadRoutes(app); // Temporarily disabled
+  registerResumeUploadRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;

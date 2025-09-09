@@ -118,16 +118,16 @@ export default function ResumeBuilder() {
 
   // Load existing resume data
   useEffect(() => {
-    if (existingResume) {
+    if (existingResume && existingResume.data) {
       setResumeData({
-        personalInfo: existingResume.personalInfo || {},
-        summary: existingResume.summary || "",
-        experiences: existingResume.experiences || [],
-        education: existingResume.education || [],
-        skills: existingResume.skills || [],
-        projects: existingResume.projects || [],
-        customSections: existingResume.customSections || [],
-        settings: existingResume.settings || {
+        personalInfo: existingResume.data.personalInfo || {},
+        summary: existingResume.data.summary || "",
+        experiences: existingResume.data.experience || [], // Note: server uses 'experience', frontend uses 'experiences'
+        education: existingResume.data.education || [],
+        skills: existingResume.data.skills || [],
+        projects: existingResume.data.projects || [],
+        customSections: existingResume.data.customSections || [],
+        settings: existingResume.data.settings || {
           templateId: existingResume.templateId || templateIdFromUrl || "",
           colorScheme: "blue",
           fontSize: "medium",
@@ -141,21 +141,43 @@ export default function ResumeBuilder() {
           backgroundColor: "#ffffff",
         },
       });
+      
+      toast({
+        title: "Resume loaded!",
+        description: "Your uploaded resume data has been loaded successfully.",
+      });
     }
-  }, [existingResume, templateIdFromUrl]);
+  }, [existingResume, templateIdFromUrl, toast]);
 
   // Auto-save mutation
   const saveMutation = useMutation({
     mutationFn: async (data: ResumeData) => {
-      const { mockStorage } = await import("@/data/mock-storage");
       if (resumeId) {
-        return await mockStorage.updateResume(resumeId, data);
-      } else {
-        const newResume = await mockStorage.createResume({
-          title: data.personalInfo.name || "Untitled Resume",
-          templateId: data.settings.templateId || "modern-1",
-          ...data,
+        // Update existing resume
+        const response = await fetch(`/api/resumes/${resumeId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: data.personalInfo.name || "Untitled Resume",
+            templateId: data.settings.templateId || "template-1",
+            data: data
+          })
         });
+        if (!response.ok) throw new Error('Failed to update resume');
+        return response.json();
+      } else {
+        // Create new resume
+        const response = await fetch('/api/resumes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: data.personalInfo.name || "Untitled Resume",
+            templateId: data.settings.templateId || "template-1",
+            data: data
+          })
+        });
+        if (!response.ok) throw new Error('Failed to create resume');
+        const newResume = await response.json();
         setLocation(`/builder/${newResume.id}`);
         return newResume;
       }

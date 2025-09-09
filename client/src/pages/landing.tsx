@@ -127,27 +127,27 @@ export default function Landing() {
               <h3 className="font-semibold text-foreground mb-3">Product</h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li><Link href="/templates" className="hover:text-foreground transition-colors">Templates</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Resume Builder</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Cover Letters</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Pricing</Link></li>
+                <li><Link href="/builder" className="hover:text-foreground transition-colors" data-testid="footer-link-builder">Resume Builder</Link></li>
+                <li><Link href="/cover-letters" className="hover:text-foreground transition-colors" data-testid="footer-link-cover-letters">Cover Letters</Link></li>
+                <li><Link href="/pricing" className="hover:text-foreground transition-colors" data-testid="footer-link-pricing">Pricing</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-foreground mb-3">Resources</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link href="#" className="hover:text-foreground transition-colors">Resume Tips</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Career Advice</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Interview Prep</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Help Center</Link></li>
+                <li><Link href="/resume-tips" className="hover:text-foreground transition-colors" data-testid="footer-link-resume-tips">Resume Tips</Link></li>
+                <li><Link href="/career-advice" className="hover:text-foreground transition-colors" data-testid="footer-link-career-advice">Career Advice</Link></li>
+                <li><Link href="/interview-prep" className="hover:text-foreground transition-colors" data-testid="footer-link-interview-prep">Interview Prep</Link></li>
+                <li><Link href="/help-center" className="hover:text-foreground transition-colors" data-testid="footer-link-help-center">Help Center</Link></li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold text-foreground mb-3">Company</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link href="#" className="hover:text-foreground transition-colors">About Us</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Contact</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
-                <li><Link href="#" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
+                <li><Link href="/about-us" className="hover:text-foreground transition-colors" data-testid="footer-link-about-us">About Us</Link></li>
+                <li><Link href="/contact" className="hover:text-foreground transition-colors" data-testid="footer-link-contact">Contact</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-foreground transition-colors" data-testid="footer-link-privacy-policy">Privacy Policy</Link></li>
+                <li><Link href="/terms-of-service" className="hover:text-foreground transition-colors" data-testid="footer-link-terms-of-service">Terms of Service</Link></li>
               </ul>
             </div>
           </div>

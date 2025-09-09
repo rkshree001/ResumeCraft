@@ -161,16 +161,16 @@ export function ResumeUpload() {
         </div>
 
         <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Upload className="h-5 w-5" />
-            Upload Existing Resume
-          </CardTitle>
-          <CardDescription>
-            Upload your existing resume in PDF or Word format. We'll extract all your information automatically and help you create a better version.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Upload className="h-5 w-5" />
+              Upload Existing Resume
+            </CardTitle>
+            <CardDescription>
+              Upload your existing resume in PDF or Word format. We'll extract all your information automatically and help you create a better version.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="resume-file">Choose your resume file</Label>
             <Input
@@ -243,8 +243,8 @@ export function ResumeUpload() {
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
